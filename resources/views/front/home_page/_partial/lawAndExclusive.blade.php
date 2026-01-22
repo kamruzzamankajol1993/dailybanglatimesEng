@@ -9,7 +9,7 @@
             $lawSlug = (isset($lawCourtsNews) && count($lawCourtsNews) > 0) ? ($lawCourtsNews->first()->categories->first()->slug ?? '#') : '#';
         @endphp
         <a href="{{ $lawSlug != '#' ? route('front.category.news', $lawSlug) : '#' }}" class="text-white text-decoration-none">
-                    <h5 class="bg-success text-white d-inline-block px-3 py-2 m-0 position-relative">আইন-আদালত</h5>
+                    <h5 class="bg-success text-white d-inline-block px-3 py-2 m-0 position-relative">Law & Court</h5>
         </a>
                 </div>
 
@@ -56,7 +56,7 @@
                         @endforeach
                     </div>
                 @else
-                    <div class="text-muted small">কোনো খবর পাওয়া যায়নি।</div>
+                    <div class="text-muted small">No news found.</div>
                 @endif
             </div>
 
@@ -67,7 +67,7 @@
             $exclSlug = (isset($exclusiveNews) && count($exclusiveNews) > 0) ? ($exclusiveNews->first()->categories->first()->slug ?? '#') : '#';
         @endphp
         <a href="{{ $exclSlug != '#' ? route('front.category.news', $exclSlug) : '#' }}" class="text-white text-decoration-none">
-                    <h5 class="bg-success text-white d-inline-block px-3 py-2 m-0 position-relative">এক্সক্লুসিভ</h5>
+                    <h5 class="bg-success text-white d-inline-block px-3 py-2 m-0 position-relative">Exclusive</h5>
         </a>
                 </div>
 
@@ -114,7 +114,7 @@
                         @endforeach
                     </div>
                 @else
-                    <div class="text-muted small">কোনো খবর পাওয়া যায়নি।</div>
+                    <div class="text-muted small">No news found.</div>
                 @endif
             </div>
 
@@ -126,7 +126,7 @@
         @endphp
         <a href="{{ $healthSlug != '#' ? route('front.category.news', $healthSlug) : '#' }}" class="text-white text-decoration-none">
         
-                    <h5 class="bg-success text-white d-inline-block px-3 py-2 m-0 position-relative">স্বাস্থ্য</h5>
+                    <h5 class="bg-success text-white d-inline-block px-3 py-2 m-0 position-relative">Health</h5>
 
         </a>
                 </div>
@@ -174,7 +174,7 @@
                         @endforeach
                     </div>
                 @else
-                    <div class="text-muted small">কোনো খবর পাওয়া যায়নি।</div>
+                    <div class="text-muted small">No news found.</div>
                 @endif
             </div>
 

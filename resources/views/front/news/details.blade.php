@@ -76,7 +76,7 @@
                                 @endif
                             </div>
                             
-                            <h6 class="fw-bold small mb-1">{{ $post->author->name ?? 'ডেস্ক রিপোর্ট' }}</h6>
+                            <h6 class="fw-bold small mb-1">{{ $post->author->name ?? 'Desk Report' }}</h6>
                             @if($post->author && $post->author->designation)
                                 <p class="text-secondary" style="font-size: 11px;">{{ $post->author->designation->name }}</p>
                             @endif
@@ -86,9 +86,10 @@
                             {{-- Date & Time Section --}}
                             <div class="text-start small text-secondary lh-sm mb-3" style="font-size: 11px;">
                                 <p class="mb-1">
-                                    <strong>প্রকাশিত :</strong> <br>
+                                    <strong>Published :</strong> <br>
                                     {{-- Format: 07 October 2025, 09:50:41 PM --}}
-                                    {{ convertToBangla($post->created_at->format('d F Y, h:i:s A')) }}
+                                    <span>{{ $post->created_at->format('d F Y') }}</span>
+                                    <span>{{ $post->bangladesh_time}}</span>
                                 </p>
                             </div>
 
@@ -100,7 +101,7 @@
                             </div>
 
                             <div class="badge bg-success w-100 py-2 rounded-1 fw-normal">
-                                মোট পঠিত: <span class="fw-bold">{{ convertToBangla($post->view_count) }}</span>
+                                Total View: <span class="fw-bold">{{ $post->view_count }}</span>
                             </div>
                         </div>
                     </div>
@@ -124,7 +125,7 @@
                                 @php $cat = $post->categories->first(); @endphp
                                 <li class="breadcrumb-item">
                                     <a href="{{ route('front.category.news', $cat->slug) }}" class="text-dark text-decoration-none">
-                                        {{ $cat->name }}
+                                        {{ $cat->eng_name }}
                                     </a>
                                 </li>
                             @endif
@@ -138,7 +139,7 @@
                     {{-- Author Mobile View --}}
                     <div class="d-flex align-items-center mb-3 d-lg-none">
                         <div class="me-2 text-success"><i class="fas fa-pen-nib"></i></div>
-                        <span class="text-secondary fw-bold small">{{ $post->author->name ?? 'ডেস্ক রিপোর্ট' }}</span>
+                        <span class="text-secondary fw-bold small">{{ $post->author->name ?? 'Desk Report' }}</span>
                     </div>
 
                     {{-- Social Share Bar (Original Design Restored) --}}
@@ -198,7 +199,7 @@
                         <div class="col-6">
                             @if($previousPost)
                                 <a href="{{ route('front.news.details', $previousPost->slug) }}" class="d-block border p-3 text-decoration-none hover-bg-light h-100 shadow-sm">
-                                    <small class="text-muted d-block mb-1"><i class="fas fa-arrow-left me-1"></i> পূর্ববর্তী সংবাদ</small>
+                                    <small class="text-muted d-block mb-1"><i class="fas fa-arrow-left me-1"></i> Previous News</small>
                                     <h6 class="fw-bold text-dark m-0 small">{{ Str::limit($previousPost->title, 40) }}</h6>
                                 </a>
                             @endif
@@ -206,7 +207,7 @@
                         <div class="col-6 text-end">
                             @if($nextPost)
                                 <a href="{{ route('front.news.details', $nextPost->slug) }}" class="d-block border p-3 text-decoration-none hover-bg-light h-100 shadow-sm">
-                                    <small class="text-muted d-block mb-1">পরবর্তী সংবাদ <i class="fas fa-arrow-right ms-1"></i></small>
+                                    <small class="text-muted d-block mb-1">Next News <i class="fas fa-arrow-right ms-1"></i></small>
                                     <h6 class="fw-bold text-dark m-0 small">{{ Str::limit($nextPost->title, 40) }}</h6>
                                 </a>
                             @endif
@@ -215,27 +216,27 @@
 
                     {{-- REACTION SECTION --}}
                     <div class="reaction-section mb-5 p-3 bg-light rounded text-center no-print">
-                        <h5 class="fw-bold mb-3">খবরটি নিয়ে আপনার প্রতিক্রিয়া জানান</h5>
+                        <h5 class="fw-bold mb-3">React to this news</h5>
                         <div class="d-flex justify-content-center gap-3 flex-wrap" id="reaction-buttons">
                             
                             <button class="btn btn-white border shadow-sm rounded-pill px-3 reaction-btn" onclick="submitReaction('like')">
-                                👍 <span id="count-like">{{ convertToBangla($post->like_count) }}</span>
+                                👍 <span id="count-like">{{ $post->like_count }}</span>
                             </button>
                             
                             <button class="btn btn-white border shadow-sm rounded-pill px-3 reaction-btn" onclick="submitReaction('love')">
-                                ❤️ <span id="count-love">{{ convertToBangla($post->love_count) }}</span>
+                                ❤️ <span id="count-love">{{ $post->love_count }}</span>
                             </button>
                             
                             <button class="btn btn-white border shadow-sm rounded-pill px-3 reaction-btn" onclick="submitReaction('haha')">
-                                😂 <span id="count-haha">{{ convertToBangla($post->haha_count) }}</span>
+                                😂 <span id="count-haha">{{ $post->haha_count }}</span>
                             </button>
                             
                             <button class="btn btn-white border shadow-sm rounded-pill px-3 reaction-btn" onclick="submitReaction('sad')">
-                                😢 <span id="count-sad">{{ convertToBangla($post->sad_count) }}</span>
+                                😢 <span id="count-sad">{{ $post->sad_count }}</span>
                             </button>
                             
                             <button class="btn btn-white border shadow-sm rounded-pill px-3 reaction-btn" onclick="submitReaction('angry')">
-                                😡 <span id="count-angry">{{ convertToBangla($post->angry_count) }}</span>
+                                😡 <span id="count-angry">{{ $post->angry_count }}</span>
                             </button>
 
                         </div>
@@ -244,7 +245,7 @@
                     {{-- COMMENT SECTION --}}
                     <div class="comment-section no-print">
                         <div class="section-header-wrapper mb-3" style="border-bottom: 2px solid #dc3545;">
-                            <h5 class="bg-success text-white d-inline-block px-3 py-2 m-0 fw-bold">মতামত দিন</h5>
+                            <h5 class="bg-success text-white d-inline-block px-3 py-2 m-0 fw-bold">Leave a comment</h5>
                         </div>
                         
                         <form action="{{ route('front.comment.store') }}" method="POST" class="mb-4">
@@ -253,19 +254,19 @@
                             
                             <div class="row g-2 mb-2">
                                 <div class="col-md-12">
-                                    <input type="text" name="name" class="form-control rounded-0" placeholder="আপনার নাম (আবশ্যক)" required>
+                                    <input type="text" name="name" class="form-control rounded-0" placeholder="Your Name (Required)" required>
                                 </div>
                             </div>
 
                             <div class="mb-2">
-                                <textarea name="body" class="form-control rounded-0" rows="3" placeholder="আপনার মন্তব্য লিখুন..." required></textarea>
+                                <textarea name="body" class="form-control rounded-0" rows="3" placeholder="Write your comment here..." required></textarea>
                             </div>
                             
-                            <button type="submit" class="btn btn-danger rounded-0 px-4">সাবমিট করুন</button>
+                            <button type="submit" class="btn btn-danger rounded-0 px-4">Submit</button>
                         </form>
 
                         <div class="existing-comments">
-                            <h6 class="mb-3">{{ convertToBangla($post->comments->count()) }} টি মন্তব্য</h6>
+                            <h6 class="mb-3">{{ $post->comments->count() }} Comments</h6>
                             
                             @foreach($post->comments as $comment)
                                 <div class="d-flex mb-3 border-bottom pb-3">
@@ -276,13 +277,13 @@
                                         <h6 class="fw-bold mb-1">
                                             {{ $comment->name }} 
                                             <small class="text-muted fw-normal ms-2" style="font-size: 12px;">
-                                                {{ convertToBangla($comment->created_at->diffForHumans()) }}
+                                                {{ $comment->created_at->diffForHumans() }}
                                             </small>
                                         </h6>
                                         <p class="small text-secondary m-0 mb-2">{{ $comment->body }}</p>
                                         
                                         <button class="btn btn-sm btn-link text-danger text-decoration-none p-0 mb-2" onclick="toggleReplyForm({{ $comment->id }})">
-                                            <i class="fas fa-reply"></i> রিপ্লাই দিন
+                                            <i class="fas fa-reply"></i> Reply
                                         </button>
 
                                         <div id="reply-form-{{ $comment->id }}" class="reply-form bg-light p-2 mb-2">
@@ -291,9 +292,9 @@
                                                 <input type="hidden" name="post_id" value="{{ $post->id }}">
                                                 <input type="hidden" name="parent_id" value="{{ $comment->id }}">
                                                 
-                                                <input type="text" name="name" class="form-control form-control-sm mb-2" placeholder="আপনার নাম" required>
-                                                <textarea name="body" class="form-control form-control-sm mb-2" rows="2" placeholder="রিপ্লাই লিখুন..." required></textarea>
-                                                <button type="submit" class="btn btn-sm btn-dark">রিপ্লাই সাবমিট</button>
+                                                <input type="text" name="name" class="form-control form-control-sm mb-2" placeholder="Your Name" required>
+                                                <textarea name="body" class="form-control form-control-sm mb-2" rows="2" placeholder="Write your reply here..." required></textarea>
+                                                <button type="submit" class="btn btn-sm btn-dark">Reply Submit</button>
                                             </form>
                                         </div>
 
@@ -327,7 +328,7 @@
                     {{-- Latest News --}}
                     <div class="mb-4">
                         <div class="section-header-wrapper mb-3" style="border-bottom: 2px solid #dc3545;">
-                            <h6 class="bg-success text-white d-inline-block px-3 py-1 m-0 fw-bold">সর্বশেষ সংবাদ</h6>
+                            <h6 class="bg-success text-white d-inline-block px-3 py-1 m-0 fw-bold">Latest News</h6>
                         </div>
                         <div class="d-flex flex-column gap-3">
                             @foreach($latestNews as $lNews)
@@ -342,7 +343,7 @@
                     {{-- Popular News --}}
                     <div class="mb-4">
                         <div class="section-header-wrapper mb-3" style="border-bottom: 2px solid #dc3545;">
-                            <h6 class="bg-success text-white d-inline-block px-3 py-1 m-0 fw-bold">জনপ্রিয় সংবাদ</h6>
+                            <h6 class="bg-success text-white d-inline-block px-3 py-1 m-0 fw-bold">Popular News</h6>
                         </div>
                         <div class="d-flex flex-column gap-3">
                             @foreach($popularNews as $pNews)

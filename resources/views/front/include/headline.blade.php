@@ -29,7 +29,7 @@
                 @else
                     {{-- যদি কোনো ব্রেকিং নিউজ না থাকে --}}
                     <span class="ticker-item me-5 d-inline-flex align-items-center">
-                        ব্রেকিং নিউজ আপডেট হচ্ছে... সাথে থাকুন।
+                     Breaking news updates... stay tuned.
                     </span>
                 @endif
 

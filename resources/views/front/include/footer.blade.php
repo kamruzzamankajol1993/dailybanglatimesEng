@@ -223,7 +223,7 @@
                             <div class="d-flex gap-3 justify-content-center flex-wrap">
                                 <a href="{{$front_front_url}}" target="_blank" class="lang-btn">বাংলা</a>
                                 <a href="{{$front_english_url}}" target="_blank" class="lang-btn">English</a>
-                                <a href="#" class="fact-check-btn">
+                                <a href="{{$front_fact_check_url}}" class="fact-check-btn">
                                     <i class="fas fa-check-circle me-1"></i> Fact Check
                                 </a>
                             </div>

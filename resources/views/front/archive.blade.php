@@ -1,7 +1,7 @@
 @extends('front.master.master')
 
 @section('title')
-পুরানো সংবাদ আর্কাইভ
+Old news archive | {{ $front_ins_name ?? '' }}
 @endsection
 
 @section('css')
@@ -69,24 +69,24 @@
 
             <div class="row g-4">
                 
-                {{-- বাম পাশ: সার্চ এবং রেজাল্ট --}}
+                {{-- Left Side: Search and Results --}}
                 <div class="col-lg-9">
                     
-                    {{-- ১. সার্চ ফিল্টার ফরম --}}
+                    {{-- 1. Search Filter Form --}}
                     <div class="archive-control-box shadow-sm mb-4">
                         <form action="{{ route('front.archive') }}" method="GET">
                             <div class="row g-3 align-items-end">
-                                <div class="col-12"><h4 class="mb-0 border-bottom pb-2 border-white"><i class="fas fa-calendar-alt me-2"></i>পুরানো সংবাদ খুঁজুন</h4></div>
+                                <div class="col-12"><h4 class="mb-0 border-bottom pb-2 border-white"><i class="fas fa-calendar-alt me-2"></i>Old news search</h4></div>
                                 
                                 <div class="col-md-5">
-                                    <label class="small fw-bold mb-1 text-light">তারিখ নির্বাচন করুন</label>
+                                    <label class="small fw-bold mb-1 text-light">Select Date</label>
                                     <input type="date" name="date" value="{{ $searchDate }}" class="form-control rounded-0 border-0">
                                 </div>
                                 
                                 <div class="col-md-5">
-                                    <label class="small fw-bold mb-1 text-light">বিভাগ (অপশনাল)</label>
+                                    <label class="small fw-bold mb-1 text-light">Category (Optional)</label>
                                     <select name="category" class="form-select rounded-0 border-0">
-                                        <option value="all">সকল বিভাগ</option>
+                                        <option value="all">All Categories</option>
                                         @foreach($categories as $cat)
                                             <option value="{{ $cat->id }}" {{ $searchCategory == $cat->id ? 'selected' : '' }}>
                                                 {{ $cat->name }}
@@ -96,25 +96,26 @@
                                 </div>
 
                                 <div class="col-md-2">
-                                    <button type="submit" class="btn btn-danger w-100 rounded-0 fw-bold">খুঁজুন</button>
+                                    <button type="submit" class="btn btn-danger w-100 rounded-0 fw-bold">Search</button>
                                 </div>
                             </div>
                         </form>
                     </div>
 
-                    {{-- ২. রেজাল্ট হেডার --}}
+                    {{-- 2. Result Header --}}
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h5 class="fw-bold m-0 text-dark">
                             @if($searchDate)
-                                <span class="text-danger">{{ \Carbon\Carbon::parse($searchDate)->locale('bn')->isoFormat('LL') }}</span> - এর সংবাদ
+                                {{-- Changed locale to 'en' for English date format --}}
+                                <span class="text-danger">News of - {{ \Carbon\Carbon::parse($searchDate)->locale('en')->isoFormat('LL') }}</span> 
                             @else
-                                <span class="text-danger">সর্বশেষ সংবাদ</span>
+                                <span class="text-danger">Latest News</span>
                             @endif
                         </h5>
-                        <span class="badge bg-secondary">মোট {{ $posts->total() }} টি সংবাদ</span>
+                        <span class="badge bg-secondary">Total {{ $posts->total() }} News</span>
                     </div>
 
-                    {{-- ৩. নিউজের তালিকা (লুপ) --}}
+                    {{-- 3. News List (Loop) --}}
                     <div class="row g-3">
                         @if($posts->count() > 0)
                             @foreach($posts as $post)
@@ -128,7 +129,7 @@
                                         <div class="card-body p-3">
                                             @if($post->categories->isNotEmpty())
                                                 <small class="text-danger fw-bold d-block mb-1">
-                                                    {{ $post->categories->first()->name }}
+                                                    {{ $post->categories->first()->eng_name }}
                                                 </small>
                                             @endif
                                             <a href="{{ route('front.news.details', $post->slug) }}" class="text-decoration-none text-dark">
@@ -140,33 +141,33 @@
                             @endforeach
                         @else
                             <div class="col-12 text-center py-5">
-                                <h4 class="text-muted">দুঃখিত! এই তারিখে কোনো সংবাদ পাওয়া যায়নি।</h4>
+                                <h4 class="text-muted">Sorry! No news found for this date.</h4>
                             </div>
                         @endif
                     </div>
 
-                    {{-- ৪. পেজিনেশন --}}
+                    {{-- 4. Pagination --}}
                     <div class="mt-5 d-flex justify-content-center">
                         {{ $posts->links('pagination::bootstrap-5') }}
                     </div>
 
                 </div>
 
-                {{-- ডান পাশ: সাইডবার --}}
+                {{-- Right Side: Sidebar --}}
                 <div class="col-lg-3">
                     <div class="sticky-top" style="top: 100px;">
                         
-                        {{-- ৫. মাসের আর্কাইভ --}}
+                        {{-- 5. Monthly Archive --}}
                         <div class="bg-white border rounded shadow-sm mb-4">
                             <div class="p-3 border-bottom bg-light">
-                                <h6 class="fw-bold m-0 text-danger">মাসের আর্কাইভ</h6>
+                                <h6 class="fw-bold m-0 text-danger">Monthly Archive</h6>
                             </div>
                             <div class="list-group list-group-flush small">
                                 @foreach($monthlyArchives as $archive)
                                     @php
-                                        // মাসের নাম বাংলায় কনভার্ট করা
-                                        $monthName = \Carbon\Carbon::createFromDate($archive->year, $archive->month, 1)->locale('bn')->isoFormat('MMMM YYYY');
-                                        // ওই মাসের ১ তারিখের লিংক জেনারেট
+                                        // Convert month name to English
+                                        $monthName = \Carbon\Carbon::createFromDate($archive->year, $archive->month, 1)->locale('en')->isoFormat('MMMM YYYY');
+                                        // Generate link for the 1st of that month
                                         $queryDate = \Carbon\Carbon::createFromDate($archive->year, $archive->month, 1)->format('Y-m-d');
                                     @endphp
                                     <a href="{{ route('front.archive', ['date' => $queryDate]) }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
@@ -177,17 +178,17 @@
                             </div>
                         </div>
 
-                        {{-- ৬. ডাইনামিক ক্যালেন্ডার --}}
+                        {{-- 6. Dynamic Calendar --}}
                         <div class="calendar-widget shadow-sm mb-4">
                             <div class="calendar-header">
-                                {{-- বর্তমানে সিলেক্ট করা বা চলতি মাস --}}
+                                {{-- Currently selected or current month --}}
                                 {{ $calendarData['banglaMonth'] }}
                             </div>
                             <div class="p-3 text-center">
                                 <table class="table table-sm table-borderless m-0 small">
                                     <thead>
                                         <tr class="text-secondary border-bottom">
-                                            <th class="text-danger">রবি</th><th>সোম</th><th>মঙ্গল</th><th>বুধ</th><th>বৃহঃ</th><th class="text-danger">শুক্র</th><th>শনি</th>
+                                            <th class="text-danger">Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th class="text-danger">Fri</th><th>Sat</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -202,22 +203,23 @@
                                             <tr>
                                                 @for ($j = 0; $j < 7; $j++)
                                                     @if ($i == 0 && $j < $startDay)
-                                                        {{-- ফাঁকা সেল (মাসের শুরুর আগের দিনগুলো) --}}
+                                                        {{-- Empty cells (Days before start of month) --}}
                                                         <td></td>
                                                     @elseif ($dayCount > $totalDays)
-                                                        {{-- ফাঁকা সেল (মাসের শেষের পরের দিনগুলো) --}}
+                                                        {{-- Empty cells (Days after end of month) --}}
                                                         <td></td>
                                                     @else
                                                         @php
-                                                            // বর্তমান লুপের তারিখ তৈরি করা
+                                                            // Create date for current loop
                                                             $thisDate = \Carbon\Carbon::createFromDate($calendarData['year'], $calendarData['month'], $dayCount)->format('Y-m-d');
                                                             $isActive = ($searchDate == $thisDate);
-                                                            $isFriday = ($j == 5); // শুক্রবার চেক
+                                                            $isFriday = ($j == 5); // Check Friday
                                                         @endphp
                                                         <td>
                                                             <a href="{{ route('front.archive', ['date' => $thisDate]) }}" 
                                                                class="calendar-date-link {{ $isActive ? 'active-date' : '' }} {{ $isFriday ? 'is-friday' : '' }}">
-                                                                {{ str_replace(range(0,9), ['০','১','২','৩','৪','৫','৬','৭','৮','৯'], $dayCount) }}
+                                                                {{-- Removed Bengali numeral conversion to show English numbers --}}
+                                                                {{ $dayCount }}
                                                             </a>
                                                         </td>
                                                         @php $dayCount++; @endphp
@@ -231,7 +233,7 @@
                         </div>
                         
                         <div class="text-center">
-                            {{-- এখানে আপনার অ্যাড কোড বসবে --}}
+                            {{-- Your ad code will go here --}}
                             @if(isset($archive_sidebar_ad))
                                 {{-- Type 1: Image --}}
                                 @if($archive_sidebar_ad->type == 1 && !empty($archive_sidebar_ad->image))
@@ -249,7 +251,7 @@
                             @else
                                 {{-- Fallback --}}
                                 <div style="background: #eee; height: 250px; display: flex; align-items: center; justify-content: center; color: #999;">
-                                    বিজ্ঞাপন
+                                    Advertisement
                                 </div>
                             @endif
                         </div>

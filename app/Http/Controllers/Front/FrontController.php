@@ -152,7 +152,7 @@ class FrontController extends Controller
                 // ১. ইংরেজি
                 $englishNews = Cache::remember('home_english', 600, function () {
                     return Post::selectRaw('id, title, slug, image, subtitle, created_at, category_id, LEFT(content, 2000) as content')
-                        ->where('status', 'approved')->where('draft_status', 0)->where('trash_status', 0)->where('language', 'en')
+                        ->where('status', 'approved')->where('draft_status', 0)->where('trash_status', 0)->where('language', 'bn')
                         ->orderBy('id', 'desc')->take(4)->get();
                 });
 
@@ -756,7 +756,7 @@ public function search(Request $request)
         return view('front.search.search_results_partial', compact('results', 'query'))->render();
     }
 
-    $categories = Category::where('status', 1)->select('id', 'eng_name')->get();
+    $categories = Category::where('status', 1)->whereNull('parent_id')->select('id', 'eng_name','name')->get();
 
     return view('front.search.search', compact('results', 'categories', 'query'));
 }

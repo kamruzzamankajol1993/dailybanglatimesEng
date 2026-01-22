@@ -5,10 +5,10 @@
             {{-- লুপ চালানোর সুবিধার্থে একটি অ্যারে তৈরি করা হলো --}}
             @php
                 $mixedSections = [
-                    ['title' => 'সোশ্যাল মিডিয়া',    'data' => $socialMediaNews ?? collect()],
-                    ['title' => 'ব্যবসা বানিজ্য',     'data' => $businessNews ?? collect()],
-                    ['title' => 'ধর্ম ও জীবন',        'data' => $religionLifeNews ?? collect()],
-                    ['title' => 'বিজ্ঞান ও প্রযুক্তি', 'data' => $sciTechNews ?? collect()],
+                    ['title' => 'Social-Media',    'data' => $socialMediaNews ?? collect()],
+                    ['title' => 'Business',     'data' => $businessNews ?? collect()],
+                    ['title' => 'Religion & Life',        'data' => $religionLifeNews ?? collect()],
+                    ['title' => 'Science & Technology', 'data' => $sciTechNews ?? collect()],
                 ];
             @endphp
 
@@ -45,7 +45,7 @@
                                     <a href="{{ route('front.news.details', $mainItem->slug) }}" class="text-dark text-decoration-none">
                                         {{ $mainItem->title }}
                                     </a>
-                                    <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ bangla_date($mainItem->created_at) }}</small>
+                                    <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ english_date($mainItem->created_at) }}</small>
                                 </h6>
                                 
                             </div>
@@ -63,14 +63,14 @@
                                             <a href="{{ route('front.news.details', $news->slug) }}" class="text-dark text-decoration-none">
                                                 {{ Str::limit($news->title, 50) }}
                                             </a>
-                                            <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ bangla_date($news->created_at) }}</small>
+                                            <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ english_date($news->created_at) }}</small>
                                         </h6>
                                     </div>
                                 </div>
                             @endforeach
                         </div>
                     @else
-                        <div class="text-muted small">খবর আপডেট হচ্ছে...</div>
+                        <div class="text-muted small">News is updating...</div>
                     @endif
                 </div>
             @endforeach

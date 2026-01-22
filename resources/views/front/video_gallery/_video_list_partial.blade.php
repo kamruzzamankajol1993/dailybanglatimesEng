@@ -42,7 +42,7 @@
         </div>
     @empty
         <div class="col-12 text-center py-5">
-            <h4 class="text-muted">কোনো ভিডিও পাওয়া যায়নি।</h4>
+            <h4 class="text-muted">No videos found.</h4>
         </div>
     @endforelse
 </div>

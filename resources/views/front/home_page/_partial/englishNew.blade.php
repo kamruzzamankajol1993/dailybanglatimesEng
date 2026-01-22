@@ -2,13 +2,13 @@
     <div class="container">
         
         <div class="d-flex align-items-end mb-3" style="border-bottom: 3px solid #dc3545;">
-            <a href="{{ $front_english_url ?? '#' }}" target="_blank" class="text-white text-decoration-none">
-            <div class="bg-success text-white px-3 py-1 fw-bold text-uppercase">English</div>
+            <a href="{{ $front_front_url ?? '#' }}" target="_blank" class="text-white text-decoration-none">
+            <div class="bg-success text-white px-3 py-1 fw-bold text-uppercase">বাংলা</div>
             </a>
         </div>
 
         <div class="text-center mb-4">
-           <a href="{{ $front_english_url }}" target="_blank"><img  onerror="this.onerror=null;this.src='{{ $front_admin_url }}{{ $front_logo_name }}';" src="{{ $front_admin_url }}{{ $front_english_banner }}" alt="English Logo" class="img-fluid"></a>
+           <a href="{{ $front_front_url }}" target="_blank"><img  onerror="this.onerror=null;this.src='{{ $front_admin_url }}{{ $front_logo_name }}';" src="{{ $front_admin_url }}{{ $front_bangla_banner }}" alt="English Logo" class="img-fluid"></a>
         </div>
 
         <div class="row g-3">
@@ -26,10 +26,10 @@
 
                             {{-- টাইটেল ও লিংক --}}
                             <h6 class="fw-bold hover-red small lh-base">
-                                <a href="{{ $front_english_url.'news/'.$news->slug }}" class="hover-red text-dark text-decoration-none">
+                                <a href="{{ $front_front_url.'news/'.$news->slug }}" class="hover-red text-dark text-decoration-none">
                                     {{ $news->title }}
                                 </a>
-                            <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ $news->created_at->format('d F Y') }}</small>
+                            <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ bangla_date($news->created_at->format('d F Y')) }}</small>
                             </h6>
                         </div>
                     </div>

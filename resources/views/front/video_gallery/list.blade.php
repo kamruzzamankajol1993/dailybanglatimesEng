@@ -1,7 +1,7 @@
 @extends('front.master.master')
 
 @section('title')
-ভিডিও গ্যালারি | {{ $front_ins_name ?? '' }} 
+Video Gallery | {{ $front_ins_name ?? '' }} 
 @endsection
 
 @section('css')
@@ -60,7 +60,7 @@
             <div class="d-flex align-items-center mb-4 text-secondary small border-bottom pb-2">
                 <a href="{{ route('front.index') }}" class="text-dark"><i class="fas fa-home"></i></a>
                 <span class="mx-2">/</span>
-                <span class="fw-bold text-danger">ভিডিও গ্যালারি</span>
+                <span class="fw-bold text-danger">Video Gallery</span>
             </div>
 
             <div class="row g-4">

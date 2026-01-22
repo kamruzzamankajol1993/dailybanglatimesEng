@@ -2,7 +2,7 @@
     
     {{-- Header: White Background with Original Logo --}}
     <div class="offcanvas-header bg-white d-flex align-items-center justify-content-between border-bottom">
-        <img src="{{ $front_admin_url }}{{ $front_logo_name }}" alt="Logo" class="img-fluid" style="max-height: 40px;">
+        <img src="{{ $front_admin_url }}{{ $front_english_header_logo }}" alt="Logo" class="img-fluid" style="max-height: 40px;">
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     
@@ -50,9 +50,9 @@
                     @endif
                 @endforeach
 
-                {{-- ৩. বাকি ক্যাটাগরি লুপ (বিবিধ-এর ভেতরের গুলো মোবাইলে নিচে দেখাবে) --}}
+                {{-- ৩. বাকি ক্যাটাগরি লুপ (Others-এর ভেতরের গুলো মোবাইলে নিচে দেখাবে) --}}
                 @if(isset($more_categories) && count($more_categories) > 0)
-                    <div class="list-group-item bg-light text-muted small fw-bold text-uppercase mt-2">অন্যান্য</div>
+                    <div class="list-group-item bg-light text-muted small fw-bold text-uppercase mt-2">Others</div>
                     @foreach($more_categories as $category)
                         @if($category->children->count() > 0)
                             <div class="accordion-item border-bottom">

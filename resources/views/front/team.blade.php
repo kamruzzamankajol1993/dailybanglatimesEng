@@ -1,7 +1,7 @@
 @extends('front.master.master')
 
 @section('title')
-    টিম | ডেইলি বাংলা টাইমস
+    Team | Daily Bangla Times
 @endsection
 
 @section('css')
@@ -136,8 +136,8 @@
         <div class="container">
             
             <div class="text-center mb-5">
-                <h1 class="fw-bold">ডেইলি বাংলা টাইমস পরিবার</h1>
-                <p class="text-secondary">বস্তুনিষ্ঠ সংবাদ পরিবেশনে যারা নিরলস কাজ করে যাচ্ছেন</p>
+                <h1 class="fw-bold">Daily Bangla Times Family</h1>
+                <p class="text-secondary">Those who tirelessly work in delivering factual news</p>
             </div>
 
             {{-- ==========================================
@@ -146,7 +146,7 @@
             @if(isset($topLeaders) && $topLeaders->count() > 0)
             <div class="mb-5">
                 <div class="text-center">
-                    <h3 class="team-section-title fw-bold text-dark">সম্পাদনা পরিষদ</h3>
+                    <h3 class="team-section-title fw-bold text-dark">Editorial Board</h3>
                 </div>
                 
                 <div class="row g-4 justify-content-center">
@@ -172,12 +172,12 @@
                                 <div class="card-body text-center p-4">
                                     <h5 class="fw-bold mb-1">{{ $member->name }}</h5>
                                     <p class="text-danger fw-bold small text-uppercase mb-3">
-                                        {{ $member->designations->pluck('name')->join(', ') }}
+                                        {{ $member->designations->pluck('eng_name')->join(', ') }}
                                     </p>
                                     
                                     {{-- Detail Button (Trigger Modal) --}}
                                     <button type="button" class="btn btn-detail" data-bs-toggle="modal" data-bs-target="#teamModal-{{ $member->id }}">
-                                        বিস্তারিত দেখুন
+                                        View Details
                                     </button>
                                 </div>
                             </div>
@@ -195,7 +195,7 @@
             <div class="col-md-4 text-center border-end">
                 <img src="{{ $front_admin_url.'public/'.$member->image }}" class="rounded-circle team-modal-img mb-3" onerror="this.src='{{ $front_admin_url }}{{ $front_logo_name }}'">
                 <h5 class="fw-bold mb-1">{{ $member->name }}</h5>
-                <p class="text-danger small fw-bold text-uppercase mb-3">{{ $member->designations->pluck('name')->join(', ') }}</p>
+                <p class="text-danger small fw-bold text-uppercase mb-3">{{ $member->designations->pluck('eng_name')->join(', ') }}</p>
                 
                 <div class="d-flex justify-content-center gap-2 mb-3">
                      @foreach($member->socialLinks as $social)
@@ -207,9 +207,9 @@
                 </div>
             </div>
             <div class="col-md-8">
-                <h6 class="fw-bold border-bottom pb-2 mb-3">পরিচিতি ও বিস্তারিত</h6>
+                <h6 class="fw-bold border-bottom pb-2 mb-3">Introduction & Details</h6>
                 <div class="text-secondary small lh-lg">
-                    {!! $member->bio ?? $member->short_description ?? 'বিস্তারিত তথ্য শীঘ্রই যুক্ত করা হবে।' !!}
+                    {!! $member->bio ?? $member->short_description ?? 'Detailed information will be added soon.' !!}
                 </div>
             </div>
         </div>
@@ -231,7 +231,7 @@
                 @foreach($categorizedTeam as $group)
                 <div class="mb-5">
                     <div class="text-center">
-                        <h3 class="team-section-title fw-bold text-dark">{{ $group['info']->name }}</h3>
+                        <h3 class="team-section-title fw-bold text-dark">{{ $group['info']->eng_name }}</h3>
                     </div>
 
                     <div class="row g-4">
@@ -257,12 +257,12 @@
                                 <div class="card-body text-center">
                                     <h6 class="fw-bold mb-1">{{ $member->name }}</h6>
                                     <p class="text-success fw-bold small mb-3">
-                                        {{ $member->designations->pluck('name')->join(', ') }}
+                                        {{ $member->designations->pluck('eng_name')->join(', ') }}
                                     </p>
 
                                     {{-- Detail Button (Trigger Modal) --}}
                                     <button type="button" class="btn btn-detail" data-bs-toggle="modal" data-bs-target="#teamModal-{{ $member->id }}">
-                                        বিস্তারিত
+                                   Details
                                     </button>
                                 </div>
                             </div>
@@ -280,7 +280,7 @@
             <div class="col-md-4 text-center border-end">
                 <img src="{{ $front_admin_url.'public/'.$member->image }}" class="rounded-circle team-modal-img mb-3" onerror="this.src='{{ $front_admin_url }}{{ $front_logo_name }}'">
                 <h5 class="fw-bold mb-1">{{ $member->name }}</h5>
-                <p class="text-danger small fw-bold text-uppercase mb-3">{{ $member->designations->pluck('name')->join(', ') }}</p>
+                <p class="text-danger small fw-bold text-uppercase mb-3">{{ $member->designations->pluck('eng_name')->join(', ') }}</p>
                 
                 <div class="d-flex justify-content-center gap-2 mb-3">
                      @foreach($member->socialLinks as $social)
@@ -292,9 +292,9 @@
                 </div>
             </div>
             <div class="col-md-8">
-                <h6 class="fw-bold border-bottom pb-2 mb-3">পরিচিতি ও বিস্তারিত</h6>
+                <h6 class="fw-bold border-bottom pb-2 mb-3">Introduction & Details</h6>
                 <div class="text-secondary small lh-lg">
-                    {!! $member->bio ?? $member->short_description ?? 'বিস্তারিত তথ্য শীঘ্রই যুক্ত করা হবে।' !!}
+                    {!! $member->bio ?? $member->short_description ?? 'Detailed information will be added soon.' !!}
                 </div>
             </div>
         </div>

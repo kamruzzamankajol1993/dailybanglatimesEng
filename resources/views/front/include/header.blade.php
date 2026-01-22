@@ -7,7 +7,7 @@
                 <i class="fas fa-bars"></i>
             </button>
             <a href="{{ route('front.index') }}">
-            <img src="{{ $front_admin_url }}{{ $front_logo_name }}" alt="Logo" class="img-fluid" style="max-height: 50px; width: auto;">
+            <img src="{{ $front_admin_url }}{{ $front_english_header_logo }}" alt="Logo" class="img-fluid" style="max-height: 50px; width: auto;">
             </a>
             <button class="btn fs-3 border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mobileSearchBox" aria-expanded="false" aria-controls="mobileSearchBox">
                 <i class="fas fa-search"></i>
@@ -31,7 +31,7 @@
             {{-- এখানে responsive-central-box ক্লাস ব্যবহার করা হয়েছে যাতে লোগো সার্চ বারের সমান থাকে --}}
             <div class="mx-auto responsive-central-box" style="width: 100%;">
                 <a href="{{ route('front.index') }}" class="d-block text-center">
-                    <img src="{{ $front_admin_url }}{{ $front_logo_name }}" alt="Logo" class="img-fluid" style="width: 100%; object-fit: contain;">
+                    <img src="{{ $front_admin_url }}{{ $front_english_header_logo }}" alt="Logo" class="img-fluid" style="width: 100%; object-fit: contain;">
                 </a>
             </div>
 

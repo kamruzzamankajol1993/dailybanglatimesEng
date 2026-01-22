@@ -5,10 +5,10 @@
             {{-- লুপ চালানোর সুবিধার্থে একটি অ্যারে তৈরি করা হলো --}}
             @php
                 $sections = [
-                    ['title' => 'শেয়ারবাজার', 'data' => $shareMarketNews ?? collect()],
-                    ['title' => 'জবস',       'data' => $jobsNews ?? collect()],
-                    ['title' => 'কৃষি',       'data' => $agricultureNews ?? collect()],
-                    ['title' => 'বিবিধ',      'data' => $miscNews ?? collect()],
+                    ['title' => 'Stock', 'data' => $shareMarketNews ?? collect()],
+                    ['title' => 'Jobs',       'data' => $jobsNews ?? collect()],
+                    ['title' => 'Agriculture',       'data' => $agricultureNews ?? collect()],
+                    ['title' => 'Miscellaneous',      'data' => $miscNews ?? collect()],
                 ];
             @endphp
 
@@ -45,7 +45,7 @@
                                         {{ $mainItem->title }}
                                     </a>
                                 </h6>
-                                <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ bangla_date($mainItem->created_at) }}</small>
+                                <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ english_date($mainItem->created_at) }}</small>
                             </div>
                         </div>
 
@@ -61,7 +61,7 @@
                                             <a href="{{ route('front.news.details', $news->slug) }}" class="text-dark text-decoration-none">
                                                 {{ Str::limit($news->title, 50) }}
                                             </a>
-                                               <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ bangla_date($news->created_at) }}</small>
+                                               <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ english_date($news->created_at) }}</small>
                                         </h6>
                                    
                                          
@@ -70,7 +70,7 @@
                             @endforeach
                         </div>
                     @else
-                        <div class="text-muted small">খবর আপডেট হচ্ছে...</div>
+                        <div class="text-muted small">News is updating...</div>
                     @endif
                 </div>
             @endforeach

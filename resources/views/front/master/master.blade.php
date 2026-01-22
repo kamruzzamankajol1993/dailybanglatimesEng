@@ -20,12 +20,12 @@
         <meta property="og:url" content="{{ url()->current() }}">
         <meta property="og:title" content="{{ $front_ins_name }}">
         <meta property="og:description" content="{{ $front_ins_d }}">
-        <meta property="og:image" content="{{ $front_admin_url }}{{ $front_logo_name }}">
+        <meta property="og:image" content="{{ $front_admin_url }}{{ $front_english_header_logo }}">
 
         <meta name="twitter:card" content="summary_large_image">
         <meta name="twitter:title" content="{{ $front_ins_name }}">
         <meta name="twitter:description" content="{{ $front_ins_d }}">
-        <meta name="twitter:image" content="{{ $front_admin_url }}{{ $front_logo_name }}">
+        <meta name="twitter:image" content="{{ $front_admin_url }}{{ $front_english_header_logo }}">
     @endif
    
     <title>@yield('title')</title>
@@ -76,7 +76,7 @@
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
    <script>
-    function updateBanglaTime() {
+    function updateTime() {
         const date = new Date();
         const options = { 
             weekday: 'long', 
@@ -90,22 +90,16 @@
             timeZone: 'Asia/Dhaka'
         };
         
-        // Get the standard Bangla string
-        let formattedDate = new Intl.DateTimeFormat('bn-BD', options).format(date);
+        // Changed 'bn-BD' to 'en-US' to display in English
+        let formattedDate = new Intl.DateTimeFormat('en-US', options).format(date);
         
-        // Manually replace English AM/PM with Bangla equivalents
-        formattedDate = formattedDate
-            .replace('AM', 'পূর্বাহ্ণ')
-            .replace('PM', 'অপরাহ্ণ')
-            .replace('am', 'পূর্বাহ্ণ')
-            .replace('pm', 'অপরাহ্ণ');
-
+        // Removed the .replace() lines since English AM/PM is default
+        
+        // Keeps the same ID 'banglaTime' so you don't have to change your HTML
         document.getElementById('banglaTime').innerHTML = '<i class="far fa-clock text-danger"></i> ' + formattedDate;
     }
-    setInterval(updateBanglaTime, 1000);
-    updateBanglaTime(); // Initial call
-
-     
+    setInterval(updateTime, 1000);
+    updateTime(); // Initial call
 </script>
 <script>
     document.addEventListener("DOMContentLoaded", function() {

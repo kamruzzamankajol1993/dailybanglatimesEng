@@ -6,7 +6,7 @@
             $sportSlug = (isset($sportsNews) && count($sportsNews) > 0) ? ($sportsNews->first()->categories->first()->slug ?? '#') : '#';
         @endphp
         <a href="{{ $sportSlug != '#' ? route('front.category.news', $sportSlug) : '#' }}" class="text-white text-decoration-none">
-            <h5 class="bg-success text-white d-inline-block px-3 py-2 m-0 position-relative">খেলা</h5>
+            <h5 class="bg-success text-white d-inline-block px-3 py-2 m-0 position-relative">Sports</h5>
         </a>
         </div>
 
@@ -37,7 +37,7 @@
                                     <a href="{{ route('front.news.details', $sport1->slug) }}" class="hover-red text-dark text-decoration-none">
                                         {{ $sport1->title }}
                                     </a>
-                                    <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ bangla_date($sport1->created_at) }}</small>
+                                    <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ english_date($sport1->created_at) }}</small>
                                 </h5>
                                 <p class="card-text small text-secondary">
                                     {{ Str::limit(strip_tags($sport1->content), 100) }}
@@ -62,7 +62,7 @@
                                                 <a href="{{ route('front.news.details', $news->slug) }}" class="hover-red text-dark text-decoration-none">
                                                     {{ $news->title }}
                                                 </a>
-                                                <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ bangla_date($news->created_at) }}</small>
+                                                <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ english_date($news->created_at) }}</small>
                                             </h6>
                                         </div>
                                     </div>
@@ -95,7 +95,7 @@
                                     <a href="{{ route('front.news.details', $sport2->slug) }}" class="hover-red text-dark text-decoration-none">
                                         {{ $sport2->title }}
                                     </a>
-                                    <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ bangla_date($sport2->created_at) }}</small>
+                                    <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ english_date($sport2->created_at) }}</small>
                                 </h5>
                                 <p class="card-text small text-secondary">
                                     {{ Str::limit(strip_tags($sport2->content), 100) }}
@@ -120,7 +120,7 @@
                                                 <a href="{{ route('front.news.details', $news->slug) }}" class="hover-red text-dark text-decoration-none">
                                                     {{ $news->title }}
                                                 </a>
-                                                <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ bangla_date($news->created_at) }}</small>
+                                                <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ english_date($news->created_at) }}</small>
                                             </h6>
                                         </div>
                                     </div>
@@ -144,7 +144,7 @@
                                             <a href="{{ route('front.news.details', $news->slug) }}" class="hover-redtext-dark text-decoration-none">
                                                 {{ $news->title }}
                                             </a>
-                                            <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ bangla_date($news->created_at) }}</small>
+                                            <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ english_date($news->created_at) }}</small>
                                         </h6>
                                     </div>
                                     <img  onerror="this.onerror=null;this.src='{{ $front_admin_url }}{{ $front_logo_name }}';" src="{{ $news->image ? $front_admin_url.$news->image : 'https://placehold.co/100x60/0044cc/fff?text=News' }}" 
@@ -158,7 +158,7 @@
 
             @else
                 <div class="col-12 text-center text-muted">
-                    <p>কোনো খেলার খবর পাওয়া যায়নি।</p>
+                    <p>No sports news found.</p>
                 </div>
             @endif
 

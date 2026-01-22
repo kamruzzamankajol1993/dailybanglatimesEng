@@ -14,7 +14,7 @@
         
         <div class="section-header-wrapper mb-4" style="border-bottom: 3px solid #dc3545;">
             <a href="{{ $catSlug != '#' ? route('front.category.news', $catSlug) : '#' }}" class="text-decoration-none">
-            <h5 class="bg-success text-white d-inline-block px-3 py-2 m-0 position-relative">বিনোদন</h5>
+            <h5 class="bg-success text-white d-inline-block px-3 py-2 m-0 position-relative">Entertainment</h5>
             </a>
         </div>
 
@@ -37,7 +37,7 @@
                                     <a href="{{ route('front.news.details', $mainEnt->slug) }}" class="text-dark text-decoration-none hover-red">
                                         {{ $mainEnt->title }}
                                     </a>
-                                    <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ bangla_date($mainEnt->created_at) }}</small>
+                                    <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ english_date($mainEnt->created_at) }}</small>
                                 </h4>
                                 <p class="card-text text-secondary mt-2">
                                     {{ Str::limit(strip_tags($mainEnt->content), 150) }}
@@ -65,7 +65,7 @@
                                                     <a href="{{ route('front.news.details', $news->slug) }}" class="text-white text-decoration-none">
                                                         {{ $news->title }}
                                                     </a>
-                                                    <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ bangla_date($news->created_at) }}</small>
+                                                    <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ english_date($news->created_at) }}</small>
                                                 </h6>
                                             </div>
                                         </div>
@@ -94,7 +94,7 @@
                                             <a href="{{ route('front.news.details', $news->slug) }}" class="text-white text-decoration-none">
                                                 {{ $news->title }}
                                             </a>
-                                            <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ bangla_date($news->created_at) }}</small>
+                                            <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ english_date($news->created_at) }}</small>
                                         </h6>
                                     </div>
                                 </div>

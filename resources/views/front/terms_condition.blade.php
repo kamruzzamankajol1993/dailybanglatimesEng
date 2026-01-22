@@ -1,7 +1,7 @@
 @extends('front.master.master')
 
 @section('title')
-ব্যবহারের শর্তাবলী
+Term & Conditions | {{ $front_ins_name ?? '' }}
 @endsection
 
 @section('css')
@@ -53,13 +53,13 @@
                         <h6 class="fw-bold m-0 text-uppercase">Legal Information</h6>
                     </div>
                     <a href="{{ route('front.termsCondition') }}" class="legal-sidebar-link active">
-                        <i class="fas fa-gavel me-2"></i> ব্যবহারের শর্তাবলী
+                        <i class="fas fa-gavel me-2"></i> Terms & Conditions
                     </a>
                     <a href="{{ route('front.privacyPolicy') }}" class="legal-sidebar-link">
-                        <i class="fas fa-user-shield me-2"></i> গোপনীয়তা নীতি
+                        <i class="fas fa-user-shield me-2"></i> Privacy Policy
                     </a>
                     <a href="{{ route('front.contactUs') }}" class="legal-sidebar-link">
-                        <i class="fas fa-envelope me-2"></i> যোগাযোগ
+                        <i class="fas fa-envelope me-2"></i> Contact Us
                     </a>
                 </div>
             </div>
@@ -68,7 +68,7 @@
             <div class="col-lg-9">
                 <div class="bg-white p-5 border shadow-sm legal-content">
                     
-                    <h2 class="fw-bold mb-4 border-bottom pb-3">ব্যবহারের শর্তাবলী (Terms of Use)</h2>
+                    <h2 class="fw-bold mb-4 border-bottom pb-3">Terms of Use</h2>
 
                     <div class="dynamic-content">
                         @if(isset($data) && $data->term_condition)
@@ -76,7 +76,7 @@
                             {!! $data->term_condition !!}
                         @else
                             <div class="alert alert-warning">
-                                কোনো তথ্য পাওয়া যায়নি। এডমিন প্যানেল থেকে তথ্য যুক্ত করুন।
+                               No information found. Please add information from the admin panel.
                             </div>
                         @endif
                     </div>

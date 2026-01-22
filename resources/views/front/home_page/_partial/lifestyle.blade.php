@@ -8,7 +8,7 @@
         @endphp
         <a href="{{ $lifeSlug != '#' ? route('front.category.news', $lifeSlug) : '#' }}" class="text-white text-decoration-none">
 
-            <h5 class="bg-success text-white d-inline-block px-3 py-2 m-0 fw-bold">লাইফস্টাইল</h5>
+            <h5 class="bg-success text-white d-inline-block px-3 py-2 m-0 fw-bold">Lifestyle</h5>
 
         </a>
         </div>
@@ -34,7 +34,7 @@
                                         {{ $news->title }}
                                     </a>
                                 </h6>
-                                  <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ bangla_date($news->created_at) }}</small>
+                                  <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ english_date($news->created_at) }}</small>
                             </div>
                         </div>
                     </div>
@@ -60,7 +60,7 @@
                                         {{ $news->title }}
                                     </a>
                                 </h6>
-                                <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ bangla_date($news->created_at) }}</small>
+                                <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ english_date($news->created_at) }}</small>
                             </div>
                         </div>
                     </div>
@@ -69,7 +69,7 @@
 
         @else
             <div class="text-center text-muted py-5">
-                <p>কোনো লাইফস্টাইল সংবাদ পাওয়া যায়নি।</p>
+                <p>No lifestyle news found.</p>
             </div>
         @endif
 

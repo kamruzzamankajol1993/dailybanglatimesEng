@@ -6,7 +6,7 @@
             $photoSlug = (isset($photoGalleryNews) && count($photoGalleryNews) > 0) ? ($photoGalleryNews->first()->categories->first()->slug ?? '#') : '#';
         @endphp
         <a href="{{ $photoSlug != '#' ? route('front.category.news', $photoSlug) : '#' }}" class="text-white text-decoration-none">
-            <h5 class="bg-success text-white d-inline-block px-3 py-1 m-0 fw-bold text-uppercase">ফটো গ্যালারি</h5>
+            <h5 class="bg-success text-white d-inline-block px-3 py-1 m-0 fw-bold text-uppercase">Photo Gallery</h5>
         </a>
         </div>
 
@@ -46,7 +46,7 @@
                                                 <a href="{{ route('front.news.details', $news->slug) }}" class="text-white text-decoration-none">
                                                     {{ $news->title }}
                                                 </a>
-                                                <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ bangla_date($news->created_at) }}</small>
+                                                <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ english_date($news->created_at) }}</small>
                                             </h3>
                                         </div>
                                     </div>
@@ -74,7 +74,7 @@
                                             <a href="{{ route('front.news.details', $news->slug) }}" class="text-dark text-decoration-none">
                                                 {{ Str::limit($news->title, 50) }}
                                             </a>
-                                            <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ bangla_date($news->created_at) }}</small>
+                                            <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ english_date($news->created_at) }}</small>
                                         </h6>
                                     </div>
                                 </div>
@@ -86,7 +86,7 @@
             </div>
         @else
             <div class="text-center text-muted py-5">
-                <p>কোনো ফটো গ্যালারি সংবাদ পাওয়া যায়নি।</p>
+                <p>No photo gallery news found.</p>
             </div>
         @endif
 

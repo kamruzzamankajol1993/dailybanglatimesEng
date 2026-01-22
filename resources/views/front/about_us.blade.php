@@ -1,7 +1,7 @@
 @extends('front.master.master')
 
 @section('title')
-{{ $front_ins_name }} - আমাদের সম্পর্কে
+{{ $front_ins_name }} - About Us
 @endsection
 
 @section('css')
@@ -58,7 +58,7 @@
             <div class="col-lg-12">
                 <div class="section-header-wrapper mb-3" style="border-bottom: 3px solid #dc3545;">
                     {{-- Title Changed: About Us -> আমাদের সম্পর্কে --}}
-                    <h5 class="bg-success text-white d-inline-block px-3 py-2 m-0 fw-bold">আমাদের সম্পর্কে</h5>
+                    <h5 class="bg-success text-white d-inline-block px-3 py-2 m-0 fw-bold">About Us</h5>
                 </div>
                 
                 <div class="text-secondary text-justify lh-lg article-content">
@@ -74,7 +74,7 @@
         {{-- 2. Dynamic Contributors / Team Section --}}
         <div class="section-header-wrapper mb-4 text-center border-0">
             {{-- Title Changed: Contributors -> নেতৃত্বে যারা আছেন --}}
-            <h3 class="fw-bold d-inline-block border-bottom border-danger border-3 pb-2">নেতৃত্বে যারা আছেন</h3>
+            <h3 class="fw-bold d-inline-block border-bottom border-danger border-3 pb-2">Leadership Team</h3>
         </div>
 
         <div class="row g-4 justify-content-center">
@@ -107,7 +107,7 @@
                         <h5 class="fw-bold mb-1">{{ $member->name }}</h5>
                         
                         <small class="text-danger fw-bold text-uppercase d-block mb-2">
-                            {{ $member->designations->pluck('name')->implode(', ') ?: 'Contributor' }}
+                            {{ $member->designations->pluck('eng_name')->implode(', ') ?: 'Contributor' }}
                         </small>
 
                         {{-- Truncated Description --}}
@@ -123,10 +123,10 @@
                                 data-bs-toggle="modal" 
                                 data-bs-target="#memberModal"
                                 data-name="{{ $member->name }}"
-                                data-designation="{{ $member->designations->pluck('name')->implode(', ') }}"
+                                data-designation="{{ $member->designations->pluck('eng_name')->implode(', ') }}"
                                 data-img="{{ $member->image ? $front_admin_url.'public/'.$member->image : $front_admin_url.$front_logo_name }}"
                                 data-desc="{{ $member->short_description }}">
-                            বিস্তারিত <i class="fas fa-arrow-right ms-1"></i>
+                            Details <i class="fas fa-arrow-right ms-1"></i>
                         </button>
                     </div>
                 </div>

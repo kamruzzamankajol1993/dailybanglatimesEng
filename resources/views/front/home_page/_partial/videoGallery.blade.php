@@ -5,7 +5,7 @@
            
            <a href="{{ route('front.video.gallery') }}" class="text-decoration-none">
             <h5 class="bg-success text-white d-inline-block px-3 py-2 m-0 fw-bold">
-                ভিডিও গ্যালারি <i class="fas fa-chevron-right small ms-2"></i>
+                Video Gallery <i class="fas fa-chevron-right small ms-2"></i>
             </h5>
            </a>
             
@@ -52,7 +52,7 @@
                                                     
                                                     {{-- সময় --}}
                                                     <small class="text-light-50 mt-2">
-                                                        <i class="far fa-clock"></i> {{ bangla_date($video->created_at) }}
+                                                        <i class="far fa-clock"></i> {{ english_date($video->created_at) }}
                                                     </small>
                                                 </div>
                                             </div>
@@ -67,7 +67,7 @@
             </div>
         @else
             <div class="text-center text-muted py-5">
-                <p>কোনো ভিডিও পাওয়া যায়নি।</p>
+                <p>No video found.</p>
             </div>
         @endif
 

@@ -1,7 +1,7 @@
 @extends('front.master.master')
 
 @section('title')
-অনুসন্ধান: {{ request('q') }} - {{ $front_ins_name ?? 'News' }} 
+Search: {{ request('q') }} - {{ $front_ins_name ?? 'News' }} 
 @endsection
 
 @section('css')
@@ -85,22 +85,6 @@
 
 @section('body')
 
-@php
-    // Helper function also needed here for result counts
-    if (!function_exists('convertToBanglaDate')) {
-        function convertToBanglaDate($date) {
-            $eng_num = ['0','1','2','3','4','5','6','7','8','9'];
-            $ban_num = ['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
-            $eng_month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-            $ban_month = ['জানু', 'ফেব্রু', 'মার্চ', 'এপ্রিল', 'মে', 'জুন', 'জুলাই', 'আগস্ট', 'সেপ্টে', 'অক্টো', 'নভেম', 'ডিসেম'];
-            
-            $converted = str_replace($eng_num, $ban_num, $date);
-            $converted = str_replace($eng_month, $ban_month, $converted);
-            return $converted;
-        }
-    }
-@endphp
-
 <section class="py-4">
     <div class="container">
         
@@ -111,13 +95,13 @@
                            type="text" 
                            name="q" 
                            value="{{ request('q') }}" 
-                           placeholder="কি খুঁজছেন?">
-                    <button class="btn btn-danger rounded-0 px-4 fw-bold" type="submit">খুঁজুন</button>
+                           placeholder="What are you looking for?">
+                    <button class="btn btn-danger rounded-0 px-4 fw-bold" type="submit">Search</button>
                 </form>
                 
                 @if(isset($results) && $results->count() > 0)
                 <div class="d-flex justify-content-between align-items-center mt-2">
-                    <small class="text-secondary">ফলাফল: প্রায় {{ convertToBanglaDate($results->total()) }}টি সংবাদ পাওয়া গেছে</small>
+                    <small class="text-secondary">Results: About {{ $results->total() }} news found</small>
                 </div>
                 @endif
             </div>
@@ -132,28 +116,28 @@
                     <input type="hidden" name="q" value="{{ request('q') }}">
 
                     <div class="filter-box mb-4 d-flex gap-3 align-items-center flex-wrap rounded">
-                        <span class="fw-bold small text-muted"><i class="fas fa-filter me-1"></i> ফিল্টার:</span>
+                        <span class="fw-bold small text-muted"><i class="fas fa-filter me-1"></i> Filter:</span>
                         
                         <select class="form-select form-select-sm w-auto border-0 shadow-sm" name="category" onchange="document.getElementById('filterForm').submit()">
-                            <option value="all">সকল বিভাগ</option>
+                            <option value="all">All Categories</option>
                             @foreach($categories as $cat)
                                 <option value="{{ $cat->id }}" {{ request('category') == $cat->id ? 'selected' : '' }}>
-                                    {{ $cat->name }}
+                                    {{ $cat->eng_name }}
                                 </option>
                             @endforeach
                         </select>
                         
                         <select class="form-select form-select-sm w-auto border-0 shadow-sm" name="time" onchange="document.getElementById('filterForm').submit()">
-                            <option value="">যেকোনো সময়</option>
-                            <option value="24h" {{ request('time') == '24h' ? 'selected' : '' }}>গত ২৪ ঘণ্টা</option>
-                            <option value="7d"  {{ request('time') == '7d' ? 'selected' : '' }}>গত ১ সপ্তাহ</option>
-                            <option value="30d" {{ request('time') == '30d' ? 'selected' : '' }}>গত ১ মাস</option>
+                            <option value="">Any time</option>
+                            <option value="24h" {{ request('time') == '24h' ? 'selected' : '' }}>Last 24 hours</option>
+                            <option value="7d"  {{ request('time') == '7d' ? 'selected' : '' }}>Last 1 week</option>
+                            <option value="30d" {{ request('time') == '30d' ? 'selected' : '' }}>Last 1 month</option>
                         </select>
 
                         <div class="ms-auto">
                             <button type="submit" name="sort" value="{{ request('sort') == 'old' ? 'desc' : 'old' }}" class="btn btn-sm btn-outline-secondary border-0">
                                 <i class="fas fa-sort-amount-{{ request('sort') == 'old' ? 'up' : 'down' }}"></i> 
-                                {{ request('sort') == 'old' ? 'পুরানো আগে' : 'নতুন আগে' }}
+                                {{ request('sort') == 'old' ? 'Oldest first' : 'Newest first' }}
                             </button>
                         </div>
                     </div>
@@ -178,11 +162,11 @@
             <div class="col-lg-4">
                 <div class="sticky-top" style="top: 100px;">
                     <div class="bg-light p-3 border rounded mb-4">
-                        <h6 class="fw-bold border-bottom pb-2 mb-2"><i class="fas fa-lightbulb text-warning me-2"></i>অনুসন্ধান টিপস</h6>
+                        <h6 class="fw-bold border-bottom pb-2 mb-2"><i class="fas fa-lightbulb text-warning me-2"></i>Search Tips</h6>
                         <ul class="small text-secondary m-0 ps-3">
-                            <li>বানান সঠিক আছে কিনা যাচাই করুন।</li>
-                            <li>ভিন্ন শব্দ বা প্রতিশব্দ ব্যবহার করে চেষ্টা করুন।</li>
-                            <li>অনুসন্ধান শব্দ ছোট ও নির্দিষ্ট রাখুন।</li>
+                            <li>Check if the spelling is correct.</li>
+                            <li>Try using different words or synonyms.</li>
+                            <li>Keep search terms short and specific.</li>
                         </ul>
                     </div>
                 </div>
@@ -242,7 +226,7 @@
                 $('#search-results-container').css('opacity', '1');
             })
             .fail(function(jqXHR, ajaxOptions, thrownError) {
-                alert('সার্ভার থেকে রেসপন্স পাওয়া যায়নি।');
+                alert('No response received from the server.');
                 $('#loading-overlay').fadeOut();
                 $('#search-results-container').css('opacity', '1');
             });

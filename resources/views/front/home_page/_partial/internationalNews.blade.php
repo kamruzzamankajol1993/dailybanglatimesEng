@@ -9,7 +9,7 @@
             $intlSlug = (isset($internationalNews) && count($internationalNews) > 0) ? ($internationalNews->first()->categories->first()->slug ?? '#') : '#';
         @endphp
         <a href="{{ $intlSlug != '#' ? route('front.category.news', $intlSlug) : '#' }}" class="text-white text-decoration-none">
-                    <h5 class="bg-success text-white d-inline-block px-3 py-2 m-0 position-relative" style="top: 0;">আন্তর্জাতিক</h5>
+                    <h5 class="bg-success text-white d-inline-block px-3 py-2 m-0 position-relative" style="top: 0;">International</h5>
         </a>
                 </div>
 
@@ -31,12 +31,12 @@
                                     <a href="{{ route('front.news.details', $mainNews->slug) }}" class="text-dark text-decoration-none hover-red">
                                         {{ $mainNews->title }}
                                     </a>
-                                     <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ bangla_date($mainNews->created_at) }}</small>
+                                     <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ english_date($mainNews->created_at) }}</small>
                                 </h3>
                                 
                                 <p class="text-secondary text-justify flex-grow-1">
                                     {{ Str::limit(strip_tags($mainNews->content), 250) }}
-                                    <a href="{{ route('front.news.details', $mainNews->slug) }}" class="text-danger fw-bold text-decoration-none">বিস্তারিত</a>
+                                    <a href="{{ route('front.news.details', $mainNews->slug) }}" class="text-danger fw-bold text-decoration-none">Details</a>
                                 </p>
                             </div>
                         </div>
@@ -55,7 +55,7 @@
                                                 <a href="{{ route('front.news.details', $news->slug) }}" class="text-dark text-decoration-none hover-red">
                                                     {{ $news->title }}
                                                 </a>
-                                                <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ bangla_date($news->created_at) }}</small>
+                                                <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ english_date($news->created_at) }}</small>
                                             </h6>
                                         </div>
                                     </div>
@@ -65,7 +65,7 @@
 
                     @else
                         <div class="col-12 text-center text-muted">
-                            <p>কোনো আন্তর্জাতিক খবর পাওয়া যায়নি।</p>
+                            <p>No international news found.</p>
                         </div>
                     @endif
 
@@ -90,7 +90,7 @@
             $opSlug = (isset($opinionNews) && count($opinionNews) > 0) ? ($opinionNews->first()->categories->first()->slug ?? '#') : '#';
         @endphp
         <a href="{{ $opSlug != '#' ? route('front.category.news', $opSlug) : '#' }}" class="text-white text-decoration-none">
-                        <h6 class="bg-success text-white d-inline-block px-3 py-1 m-0">সাক্ষাৎকার</h6>
+                        <h6 class="bg-success text-white d-inline-block px-3 py-1 m-0">Opinion</h6>
         </a>
         
                     </div>
@@ -115,7 +115,7 @@
                                                     <a href="{{ route('front.news.details', $news->slug) }}" class="text-dark text-decoration-none hover-red">
                                                         {{ $news->title }}
                                                     </a>
-                                                    <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ bangla_date($news->created_at) }}</small>
+                                                    <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ english_date($news->created_at) }}</small>
                                                 </h6>
                                             </div>
                                         </div>
@@ -123,7 +123,7 @@
                                 </div>
                             @endforeach
                         @else
-                            <p class="text-muted small">কোনো মতামত পাওয়া যায়নি।</p>
+                            <p class="text-muted small">No opinion found.</p>
                         @endif
                     </div>
                 </div>

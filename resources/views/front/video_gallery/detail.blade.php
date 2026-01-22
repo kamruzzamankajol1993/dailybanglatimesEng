@@ -74,7 +74,7 @@
             <nav aria-label="breadcrumb" class="mb-4 border-bottom pb-2">
                 <ol class="breadcrumb small text-secondary mb-0">
                     <li class="breadcrumb-item"><a href="{{ route('front.index') }}" class="text-dark"><i class="fas fa-home"></i></a></li>
-                    <li class="breadcrumb-item active">ভিডিও গ্যালারি</li>
+                    <li class="breadcrumb-item active">Video Gallery</li>
                     <li class="breadcrumb-item active text-danger">{{ Str::limit($video->title, 50) }}</li>
                 </ol>
             </nav>
@@ -95,7 +95,7 @@
                         
                         <div class="d-flex align-items-center text-secondary small mb-3">
                             <span class="me-3"><i class="far fa-clock text-danger me-1"></i> {{ convertToBanglaNum($video->created_at->format('d M Y, h:i A')) }}</span>
-                            <span><i class="far fa-eye text-success me-1"></i> দেখা হয়েছে: {{ convertToBanglaNum($video->view_count) }} বার</span>
+                            <span><i class="far fa-eye text-success me-1"></i> Viewed: {{ convertToBanglaNum($video->view_count) }} times</span>
                         </div>
 
                         {{-- Social Share --}}
@@ -109,7 +109,7 @@
                     {{-- 2. Description --}}
                     @if($video->description)
                     <div class="article-content text-justify border-top pt-4">
-                        <h5 class="fw-bold mb-3 text-secondary">বিস্তারিত</h5>
+                        <h5 class="fw-bold mb-3 text-secondary">Description</h5>
                         {!! $video->description !!}
                     </div>
                     @endif
@@ -126,7 +126,7 @@
                         {{-- Section Header --}}
                         <div class="section-header-wrapper mb-3" style="border-bottom: 2px solid #dc3545;">
                             <h6 class="bg-success text-white d-inline-block px-3 py-1 m-0 fw-bold">
-                                আরও ভিডিও দেখুন <i class="fas fa-play-circle ms-1"></i>
+                                More Videos <i class="fas fa-play-circle ms-1"></i>
                             </h6>
                         </div>
 
@@ -160,20 +160,24 @@
                                 @endforeach
                             @else
                                 <div class="text-center text-muted py-3">
-                                    <small>আর কোনো ভিডিও পাওয়া যায়নি।</small>
+                                    <small>No more videos found.</small>
                                 </div>
                             @endif
                         </div>
 
                         {{-- Sidebar AD --}}
-                        <div class="mt-4 text-center">
-                            <div class="bg-light border d-flex align-items-center justify-content-center text-secondary" style="height: 250px; width: 100%;">
-                                <div class="text-center">
-                                    <h5 class="fw-bold">AD SPACE</h5>
-                                    <small>300x250</small>
-                                </div>
-                            </div>
-                        </div>
+                         @if(isset($news_detail_sidebar_ad))
+                    <div class="mb-4 text-center">
+                         @if($news_detail_sidebar_ad->type == 1 && !empty($news_detail_sidebar_ad->image))
+                            <a href="{{ $news_detail_sidebar_ad->link ?? 'javascript:void(0)' }}" {{ !empty($news_detail_sidebar_ad->link) ? 'target="_blank"' : '' }}>
+                                <img src="{{ $front_admin_url }}public/{{ $news_detail_sidebar_ad->image }}" class="img-fluid border" alt="Sidebar Ad">
+                            </a>
+                        @elseif($news_detail_sidebar_ad->type == 2 && !empty($news_detail_sidebar_ad->script))
+                            {!! $news_detail_sidebar_ad->script !!}
+                        @endif
+                    </div>
+                    
+                    @endif
 
                     </div>
                 </div>

@@ -1,7 +1,7 @@
 @extends('front.master.master')
 
 @section('title')
-    কন্ট্রিবিউটর | ডেইলি বাংলা টাইমস
+    Contributor | ডেইলি বাংলা টাইমস
 @endsection
 
 @section('css')
@@ -131,8 +131,8 @@
         <div class="container">
             
             <div class="text-center mb-5">
-                <h1 class="fw-bold">{{ $category->name ?? 'কন্ট্রিবিউটর' }}</h1>
-                <p class="text-secondary">আমাদের সম্মানিত কন্ট্রিবিউটরবৃন্দ</p>
+                <h1 class="fw-bold">{{ $category->name ?? 'Contributor' }}</h1>
+                <p class="text-secondary">Our esteemed contributors</p>
                 <div class="section-title"></div>
             </div>
 
@@ -185,7 +185,7 @@
                                 <p class="text-danger small fw-bold mb-3">{{ $desigNames }}</p>
                                 
                                 <div class="text-start bg-light p-3 rounded small text-secondary">
-                                     {!! $member->bio ?? $member->short_description ?? 'বিস্তারিত তথ্য শীঘ্রই যুক্ত করা হবে।' !!}
+                                     {!! $member->bio ?? $member->short_description ?? 'Detailed information will be added soon.' !!}
                                 </div>
 
                                 @if($member->socialLinks->count() > 0)
@@ -206,7 +206,7 @@
                 </div>
             @else
                 <div class="text-center py-5">
-                    <h4 class="text-muted">বর্তমানে কোন তথ্য পাওয়া যায়নি।</h4>
+                    <h4 class="text-muted">No information is currently available.</h4>
                 </div>
             @endif
 

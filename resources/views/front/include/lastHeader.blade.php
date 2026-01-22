@@ -53,11 +53,11 @@
                     @endif
                 @endforeach
 
-                {{-- ৩. বিবিধ অপশন (বাকি ক্যাটাগরিগুলোর জন্য) --}}
+                {{-- ৩. Others অপশন (বাকি ক্যাটাগরিগুলোর জন্য) --}}
                 @if($more_categories->count() > 0)
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="bibidhoDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            বিবিধ
+                            Others
                         </a>
                         <ul class="dropdown-menu border-0 shadow rounded-0" aria-labelledby="bibidhoDropdown">
                             @foreach($more_categories as $moreCategory)

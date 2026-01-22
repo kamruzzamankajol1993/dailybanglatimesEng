@@ -9,7 +9,7 @@
             $artSlug = (isset($artsLiteratureNews) && count($artsLiteratureNews) > 0) ? ($artsLiteratureNews->first()->categories->first()->slug ?? '#') : '#';
         @endphp
         <a href="{{ $artSlug != '#' ? route('front.category.news', $artSlug) : '#' }}" class="text-white text-decoration-none">
-                    <h5 class="bg-success text-white d-inline-block px-3 py-2 m-0 position-relative">শিল্প ও সাহিত্য</h5>
+                    <h5 class="bg-success text-white d-inline-block px-3 py-2 m-0 position-relative">Art and Literature</h5>
         </a>
                 </div>
 
@@ -29,7 +29,7 @@
                                 <a href="{{ route('front.news.details', $mainArts->slug) }}" class="text-dark text-decoration-none hover-red">
                                     {{ $mainArts->title }}
                                 </a>
-                                <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ bangla_date($mainArts->created_at) }}</small>
+                                <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ english_date($mainArts->created_at) }}</small>
                             </h5>
                             <p class="card-text small text-secondary text-justify">
                                 {{ Str::limit(strip_tags($mainArts->content), 150) }}
@@ -49,14 +49,14 @@
                                         <a href="{{ route('front.news.details', $news->slug) }}" class="text-dark text-decoration-none hover-red">
                                             {{ $news->title }}
                                         </a>
-                                        <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ bangla_date($news->created_at) }}</small>
+                                        <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ english_date($news->created_at) }}</small>
                                     </h6>
                                 </div>
                             </div>
                         @endforeach
                     </div>
                 @else
-                    <div class="text-muted small">কোনো খবর পাওয়া যায়নি।</div>
+                    <div class="text-muted small">No news found.</div>
                 @endif
             </div>
 
@@ -67,7 +67,7 @@
             $featSlug = (isset($featureNews) && count($featureNews) > 0) ? ($featureNews->first()->categories->first()->slug ?? '#') : '#';
         @endphp
         <a href="{{ $featSlug != '#' ? route('front.category.news', $featSlug) : '#' }}" class="text-white text-decoration-none">
-                    <h5 class="bg-success text-white d-inline-block px-3 py-2 m-0 position-relative">ফিচার</h5>
+                    <h5 class="bg-success text-white d-inline-block px-3 py-2 m-0 position-relative">Feature</h5>
         </a>
                 </div>
 
@@ -87,7 +87,7 @@
                                 <a href="{{ route('front.news.details', $mainFeature->slug) }}" class="text-dark text-decoration-none hover-red">
                                     {{ $mainFeature->title }}
                                 </a>
-                                <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ bangla_date($mainFeature->created_at) }}</small>
+                                <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ english_date($mainFeature->created_at) }}</small>
                             </h5>
                             <p class="card-text small text-secondary text-justify">
                                 {{ Str::limit(strip_tags($mainFeature->content), 150) }}
@@ -107,14 +107,14 @@
                                         <a href="{{ route('front.news.details', $news->slug) }}" class="text-dark text-decoration-none hover-red">
                                             {{ $news->title }}
                                         </a>
-                                        <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ bangla_date($news->created_at) }}</small>
+                                        <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ english_date($news->created_at) }}</small>
                                     </h6>
                                 </div>
                             </div>
                         @endforeach
                     </div>
                 @else
-                    <div class="text-muted small">কোনো খবর পাওয়া যায়নি।</div>
+                    <div class="text-muted small">No news found.</div>
                 @endif
             </div>
 
@@ -125,7 +125,7 @@
             $womSlug = (isset($womenNews) && count($womenNews) > 0) ? ($womenNews->first()->categories->first()->slug ?? '#') : '#';
         @endphp
         <a href="{{ $womSlug != '#' ? route('front.category.news', $womSlug) : '#' }}" class="text-white text-decoration-none">
-                    <h5 class="bg-success text-white d-inline-block px-3 py-2 m-0 position-relative">নারী</h5>
+                    <h5 class="bg-success text-white d-inline-block px-3 py-2 m-0 position-relative">Woman</h5>
         </a>
                 </div>
 
@@ -145,7 +145,7 @@
                                 <a href="{{ route('front.news.details', $mainWomen->slug) }}" class="text-dark text-decoration-none hover-red">
                                     {{ $mainWomen->title }}
                                 </a>
-                                <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ bangla_date($mainWomen->created_at) }}</small>
+                                <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ english_date($mainWomen->created_at) }}</small>
                             </h5>
                             <p class="card-text small text-secondary text-justify">
                                 {{ Str::limit(strip_tags($mainWomen->content), 150) }}
@@ -165,14 +165,14 @@
                                         <a href="{{ route('front.news.details', $news->slug) }}" class="text-dark text-decoration-none hover-red">
                                             {{ $news->title }}
                                         </a>
-                                        <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ bangla_date($news->created_at) }}</small>
+                                        <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ english_date($news->created_at) }}</small>
                                     </h6>
                                 </div>
                             </div>
                         @endforeach
                     </div>
                 @else
-                    <div class="text-muted small">কোনো খবর পাওয়া যায়নি।</div>
+                    <div class="text-muted small">No news found.</div>
                 @endif
             </div>
 

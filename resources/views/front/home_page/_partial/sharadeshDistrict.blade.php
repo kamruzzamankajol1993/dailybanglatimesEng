@@ -9,7 +9,7 @@
             $saraSlug = (isset($saradeshNews) && count($saradeshNews) > 0) ? ($saradeshNews->first()->categories->first()->slug ?? '#') : '#';
         @endphp
         <a href="{{ $saraSlug != '#' ? route('front.category.news', $saraSlug) : '#' }}" class="text-white text-decoration-none">
-                    <h5 class="bg-success text-white d-inline-block px-3 py-2 m-0 fw-bold">সারা দেশ</h5>
+                    <h5 class="bg-success text-white d-inline-block px-3 py-2 m-0 fw-bold">Whole Country</h5>
         </a>
                 </div>
 
@@ -29,7 +29,7 @@
                                 <a href="{{ route('front.news.details', $mainSaradesh->slug) }}" class="text-dark text-decoration-none">
                                     {{ $mainSaradesh->title }}
                                 </a>
-                                    <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ bangla_date($mainSaradesh->created_at) }}</small>
+                                    <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ english_date($mainSaradesh->created_at) }}</small>
                             </h4>
                             <p class="card-text text-secondary mt-2 text-justify small">
                                 @if($mainSaradesh->subtitle)
@@ -41,7 +41,7 @@
                         </div>
                     </div>
                 @else
-                    <div class="text-muted py-3">খবর পাওয়া যায়নি।</div>
+                    <div class="text-muted py-3">No news found.</div>
                 @endif
             </div>
 
@@ -67,7 +67,7 @@
                                             <a href="{{ route('front.news.details', $news->slug) }}" class="text-dark text-decoration-none">
                                                 {{ Str::limit($news->title, 40) }}
                                             </a>
-                                            <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ bangla_date($news->created_at) }}</small>
+                                            <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ english_date($news->created_at) }}</small>
                                         </h6>
                                         
                                     </div>
@@ -81,7 +81,7 @@
             {{-- ৩. বিভাগ ও জেলা ফিল্টার (Right Side - Dynamic) --}}
             <div class="col-lg-3">
                 <div class="section-header-wrapper mb-3" style="border-bottom: 2px solid #dc3545;">
-                    <h6 class="bg-success text-white d-inline-block px-3 py-2 m-0 fw-bold">এক ক্লিকে বিভাগের সব খবর</h6>
+                    <h6 class="bg-success text-white d-inline-block px-3 py-2 m-0 fw-bold">All Division news in one click</h6>
                 </div>
 
                 <div class="card border-0 rounded-0 p-3 shadow-sm bg-white">
@@ -90,9 +90,9 @@
                             
                             {{-- Division Dropdown --}}
                             <div class="col-12 mb-2">
-                                <label class="form-label small fw-bold text-secondary">বিভাগ বাছাই করুন</label>
+                                <label class="form-label small fw-bold text-secondary">Select category</label>
                                 <select id="divisionSelect" class="form-select form-select-sm rounded-0 bg-light border-secondary">
-                                    <option value="" selected disabled>বিভাগ...</option>
+                                    <option value="" selected disabled>Division...</option>
                                     @if(isset($divisions))
                                         @foreach($divisions as $division)
                                             {{-- Only show categories that act as divisions (you can filter by specific IDs if needed) --}}
@@ -104,15 +104,15 @@
 
                             {{-- District Dropdown (Populated by JS) --}}
                             <div class="col-12">
-                                <label class="form-label small fw-bold text-secondary">জেলা বাছাই করুন</label>
+                                <label class="form-label small fw-bold text-secondary">Select district</label>
                                 <select id="districtSelect" class="form-select form-select-sm rounded-0 bg-light border-secondary" disabled>
-                                    <option value="" selected disabled>জেলা...</option>
+                                    <option value="" selected disabled>District...</option>
                                 </select>
                             </div>
                         </div>
                         
                         <button type="button" onclick="goToLocationNews()" class="btn btn-danger w-100 rounded-0 fw-bold btn-sm py-2">
-                            <i class="fas fa-search me-1"></i> অনুসন্ধান করুন
+                            <i class="fas fa-search me-1"></i> Search Here
                         </button>
                     </form>
                 </div>

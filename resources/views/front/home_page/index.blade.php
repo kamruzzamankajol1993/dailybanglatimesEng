@@ -64,12 +64,12 @@
                                         <a href="{{ route('front.news.details', $news->slug) }}" class="small fw-bold text-dark hover-red lh-sm text-decoration-none">
                                             {{ $news->title }}
                                         </a>
-                                        <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ bangla_date($news->created_at) }}</small>
+                                        <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ english_date($news->created_at) }}</small>
                                     </div>
                                 </div>
                             @endforeach
                         @else
-                             <p class="text-center text-muted small mt-3">কোনো খবর পাওয়া যায়নি।</p>
+                             <p class="text-center text-muted small mt-3">No news found.</p>
                         @endif
                     </div>
                 </div>
@@ -86,7 +86,7 @@
                                         <div class="carousel-caption d-none d-md-block news-caption-overlay">
                                             <h4 class="fw-bold mb-1">
                                                 <a href="{{ route('front.news.details', $post->slug) }}" class="text-white text-decoration-none">{{ $post->title }}</a>
-                                                <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ bangla_date($post->created_at) }}</small>
+                                                <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ english_date($post->created_at) }}</small>
                                             </h4>
                                             @if($post->subtitle)
                                                 <p class="small mb-2">{{ Str::limit($post->subtitle, 100) }}</p>
@@ -113,7 +113,7 @@
                                                 <a href="{{ route('front.news.details', $news->slug) }}" class=" hover-red text-dark text-decoration-none">{{ $news->title }}</a>
 
                                             </h6>
-                                                                                        <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ bangla_date($news->created_at) }}</small>
+                                                                                        <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ english_date($news->created_at) }}</small>
                                         </div>
                                     </div>
                                 </div>
@@ -147,12 +147,12 @@
                                             <div class="w-100">
                                                 @if($post->subtitle) <div class="news-subtitle">{{ $post->subtitle }}</div> @endif
                                                 <a href="{{ route('front.news.details', $post->slug) }}" class="small fw-bold text-dark hover-red lh-sm text-decoration-none">{{ $post->title }}</a>
-                                                    <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ bangla_date($post->created_at) }}</small>
+                                                    <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ english_date($post->created_at) }}</small>
                                             </div>
                                         </div>
                                     @endforeach
                                 @else
-                                    <p class="text-center text-muted small mt-3">কোনো খবর পাওয়া যায়নি।</p>
+                                    <p class="text-center text-muted small mt-3">No news found.</p>
                                 @endif
                             </div>
                             
@@ -168,12 +168,12 @@
                                             <div class="w-100">
                                                 @if($post->subtitle) <div class="news-subtitle">{{ $post->subtitle }}</div> @endif
                                                 <a href="{{ route('front.news.details', $post->slug) }}" class="small fw-bold text-dark hover-red lh-sm text-decoration-none">{{ $post->title }}</a>
-                                                    <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ bangla_date($post->created_at) }}</small>
+                                                    <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ english_date($post->created_at) }}</small>
                                             </div>
                                         </div>
                                     @endforeach
                                 @else
-                                    <p class="text-center text-muted small mt-3">কোনো খবর পাওয়া যায়নি।</p>
+                                    <p class="text-center text-muted small mt-3">No news found.</p>
                                 @endif
                             </div>
                         </div>
@@ -206,7 +206,7 @@
         <div class="spinner-border" role="status">
             <span class="visually-hidden">Loading...</span>
         </div>
-        <p class="mt-2 fw-bold text-muted">আরও সংবাদ লোড হচ্ছে...</p>
+        <p class="mt-2 fw-bold text-muted">Loading More News...</p>
     </div>
 
 @endsection
@@ -261,11 +261,11 @@
 
                     // ৪. অটোমেটিক পরের ব্যাচ লোড করার চেক (অপশনাল)
                     // যদি আপনি চান স্ক্রল না করলেও পেজ ভরে যাক, তবে নিচের লাইনটি আনকমেন্ট করুন
-                    /*
+                  
                     if (hasMore && $(window).height() > $(document).height() - 100) {
                          loadMoreSections();
                     }
-                    */
+                    
                 },
                 error: function() {
                     isLoading = false;

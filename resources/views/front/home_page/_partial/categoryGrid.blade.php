@@ -9,7 +9,7 @@
             $natSlug = (isset($nationalNews) && count($nationalNews) > 0) ? ($nationalNews->first()->categories->first()->slug ?? '#') : '#';
         @endphp
         <a href="{{ $natSlug != '#' ? route('front.category.news', $natSlug) : '#' }}" class="text-white text-decoration-none">
-                    <h5 class="bg-success text-white d-inline-block px-3 py-2 m-0 position-relative">জাতীয়</h5>
+                    <h5 class="bg-success text-white d-inline-block px-3 py-2 m-0 position-relative">Bangladesh</h5>
         </a>
                 </div>
 
@@ -31,7 +31,7 @@
                                 <a href="{{ route('front.news.details', $mainNational->slug) }}" class="text-dark text-decoration-none hover-red">
                                     {{ $mainNational->title }}
                                 </a>
-                                <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ bangla_date($mainNational->created_at) }}</small>
+                                <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ english_date($mainNational->created_at) }}</small>
                             </h5>
                             <p class="card-text small text-secondary text-justify">
                                 {{ Str::limit(strip_tags($mainNational->content), 150) }}
@@ -51,7 +51,7 @@
                                         <a href="{{ route('front.news.details', $news->slug) }}" class="text-dark text-decoration-none hover-red">
                                             {{ $news->title }}
                                         </a>
-                                        <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ bangla_date($news->created_at) }}</small>
+                                        <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ english_date($news->created_at) }}</small>
                                     </h6>
                                 </div>
                             </div>
@@ -67,7 +67,7 @@
             $polSlug = (isset($politicsNews) && count($politicsNews) > 0) ? ($politicsNews->first()->categories->first()->slug ?? '#') : '#';
         @endphp
         <a href="{{ $polSlug != '#' ? route('front.category.news', $polSlug) : '#' }}" class="text-white text-decoration-none">
-                    <h5 class="bg-success text-white d-inline-block px-3 py-2 m-0 position-relative">রাজনীতি</h5>
+                    <h5 class="bg-success text-white d-inline-block px-3 py-2 m-0 position-relative">Politics</h5>
         </a>
                 </div>
 
@@ -89,7 +89,7 @@
                                 <a href="{{ route('front.news.details', $mainPolitics->slug) }}" class="text-dark text-decoration-none hover-red">
                                     {{ $mainPolitics->title }}
                                 </a>
-                                <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ bangla_date($mainPolitics->created_at) }}</small>
+                                <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ english_date($mainPolitics->created_at) }}</small>
                             </h5>
                             <p class="card-text small text-secondary text-justify">
                                 {{ Str::limit(strip_tags($mainPolitics->content), 150) }}
@@ -109,7 +109,7 @@
                                         <a href="{{ route('front.news.details', $news->slug) }}" class="text-dark text-decoration-none hover-red">
                                             {{ $news->title }}
                                         </a>
-                                        <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ bangla_date($news->created_at) }}</small>
+                                        <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ english_date($news->created_at) }}</small>
                                     </h6>
                                 </div>
                             </div>
@@ -125,7 +125,7 @@
             $ecoSlug = (isset($economyNews) && count($economyNews) > 0) ? ($economyNews->first()->categories->first()->slug ?? '#') : '#';
         @endphp
         <a href="{{ $ecoSlug != '#' ? route('front.category.news', $ecoSlug) : '#' }}" class="text-white text-decoration-none">
-                    <h5 class="bg-success text-white d-inline-block px-3 py-2 m-0 position-relative">অর্থনীতি</h5>
+                    <h5 class="bg-success text-white d-inline-block px-3 py-2 m-0 position-relative">The Economy</h5>
         </a>
                 </div>
 
@@ -147,7 +147,7 @@
                                 <a href="{{ route('front.news.details', $mainEconomy->slug) }}" class="text-dark text-decoration-none hover-red">
                                     {{ $mainEconomy->title }}
                                 </a>
-                                <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ bangla_date($mainEconomy->created_at) }}</small>
+                                <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ english_date($mainEconomy->created_at) }}</small>
                             </h5>
                             <p class="card-text small text-secondary text-justify">
                                 {{ Str::limit(strip_tags($mainEconomy->content), 150) }}
@@ -167,7 +167,7 @@
                                         <a href="{{ route('front.news.details', $news->slug) }}" class="text-dark text-decoration-none hover-red">
                                             {{ $news->title }}
                                         </a>
-                                        <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ bangla_date($news->created_at) }}</small>
+                                        <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ english_date($news->created_at) }}</small>
                                     </h6>
                                 </div>
                             </div>

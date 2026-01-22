@@ -80,7 +80,7 @@
             <div class="d-flex align-items-center mb-4 text-secondary small border-bottom pb-2">
                 <a href="{{ route('front.index') }}" class="text-dark"><i class="fas fa-home"></i></a>
                 <span class="mx-2">/</span>
-                <span class="fw-bold text-danger">{{ $category->name ?? 'News' }}</span>
+                <span class="fw-bold text-danger">{{ $category->eng_name ?? 'News' }}</span>
             </div>
 
             <div class="row g-4">

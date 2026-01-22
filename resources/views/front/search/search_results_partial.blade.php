@@ -1,19 +1,3 @@
-@php
-    // Bangla Date Converter Function (Check if exists to avoid error)
-    if (!function_exists('convertToBanglaDate')) {
-        function convertToBanglaDate($date) {
-            $eng_num = ['0','1','2','3','4','5','6','7','8','9'];
-            $ban_num = ['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
-            $eng_month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-            $ban_month = ['জানু', 'ফেব্রু', 'মার্চ', 'এপ্রিল', 'মে', 'জুন', 'জুলাই', 'আগস্ট', 'সেপ্টে', 'অক্টো', 'নভেম', 'ডিসেম'];
-            
-            $converted = str_replace($eng_num, $ban_num, $date);
-            $converted = str_replace($eng_month, $ban_month, $converted);
-            return $converted;
-        }
-    }
-@endphp
-
 <div class="d-flex flex-column gap-4">
     @forelse($results as $post)
         <div class="search-item d-flex align-items-start border-bottom pb-3">
@@ -37,11 +21,11 @@
                 </a>
                 <div class="search-meta mb-2">
                     <span class="text-danger fw-bold">
-                        {{ $post->categories->first()->name ?? 'খবর' }}
+                        {{ $post->categories->first()->eng_name ?? 'News' }}
                     </span>
                     <span class="mx-1">•</span>
                     <i class="far fa-clock small"></i> 
-                    {{ convertToBanglaDate($post->created_at->format('d M, Y')) }}
+                    {{ $post->created_at->format('d M, Y') }}
                 </div>
                 <p class="text-secondary small mb-0 text-truncate-2">
                     @if($post->subtitle)
@@ -54,8 +38,8 @@
         </div>
     @empty
         <div class="text-center py-5">
-            <h4 class="text-muted">দুঃখিত! আপনার অনুসন্ধানের সাথে কোনো সংবাদ মেলেনি।</h4>
-            <p class="text-secondary">বানান সঠিক আছে কিনা যাচাই করুন অথবা ভিন্ন শব্দ ব্যবহার করুন।</p>
+            <h4 class="text-muted">Sorry! No news matched your search.</h4>
+            <p class="text-secondary">Check spelling or use different keywords.</p>
         </div>
     @endforelse
 </div>
@@ -75,9 +59,9 @@
         {{-- Pagination Elements --}}
         @foreach ($results->getUrlRange(max(1, $results->currentPage() - 2), min($results->lastPage(), $results->currentPage() + 2)) as $page => $url)
             @if ($page == $results->currentPage())
-                <span class="page-link active">{{ convertToBanglaDate($page) }}</span>
+                <span class="page-link active">{{ $page }}</span>
             @else
-                <a href="{{ $url }}" class="page-link">{{ convertToBanglaDate($page) }}</a>
+                <a href="{{ $url }}" class="page-link">{{ $page }}</a>
             @endif
         @endforeach
 

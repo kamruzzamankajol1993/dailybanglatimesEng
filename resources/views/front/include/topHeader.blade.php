@@ -36,14 +36,14 @@
             {{-- ১. বাম পাশ: সময় --}}
             <div class="flex-shrink-0" style="width: 28%;">
                 <small class="text-dark fw-bold top-time-text" id="banglaTime">
-                    <i class="far fa-clock"></i> লোড হচ্ছে...
+                    <i class="far fa-clock"></i> Loading...
                 </small>
             </div>
             
             {{-- ২. মাঝখান: সার্চ বার (সাইজ রেসপন্সিভ ক্লাসের মাধ্যমে কন্ট্রোল হবে) --}}
             <div class="flex-grow-1 d-flex justify-content-center px-1">
                 <form class="d-flex w-100 responsive-central-box" action="{{ route('front.search') }}" method="GET">
-                    <input class="form-control rounded-0 shadow-none" name="q" type="search" placeholder="অনুসন্ধান..." aria-label="Search" style="border-color: #ddd; font-size: 14px;">
+                    <input class="form-control rounded-0 shadow-none" name="q" type="search" placeholder="Search Here..." aria-label="Search" style="border-color: #ddd; font-size: 14px;">
                     <button class="btn btn-success rounded-0" type="submit" style="background:#006a4e; border-color:#006a4e;">
                         <i class="fas fa-search"></i>
                     </button>
@@ -57,8 +57,8 @@
                 {{-- বাটন গ্রুপ (শুধু English এবং Fact Check) --}}
                 <div class="d-flex align-items-center gap-1 me-2">
                     {{-- বাংলা বাটনটি সরিয়ে ফেলা হয়েছে --}}
-                    <a href="{{$front_english_url}}" target="_blank" class="btn btn-success btn-sm rounded-0 fw-bold px-2 btn-custom-responsive" style="background:#006a4e; border:none; font-size: 13px;">English</a>
-                    <a href="#" class="btn btn-success btn-sm rounded-0 fw-bold px-2 btn-custom-responsive" style="background:#006a4e; border:none; font-size: 13px;">Fact Check</a>
+                    <a href="{{$front_front_url}}" target="_blank" class="btn btn-success btn-sm rounded-0 fw-bold px-2 btn-custom-responsive" style="background:#006a4e; border:none; font-size: 13px;">বাংলা</a>
+                    <a href="{{$front_fact_check_url}}" class="btn btn-success btn-sm rounded-0 fw-bold px-2 btn-custom-responsive" style="background:#006a4e; border:none; font-size: 13px;">Fact Check</a>
                 </div>
                 
                 {{-- সোশ্যাল আইকন --}}

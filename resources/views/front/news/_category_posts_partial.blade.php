@@ -31,13 +31,13 @@
                     <div class="d-flex mb-2">
                         {{-- Show Category Name --}}
                         <span class="badge bg-danger rounded-0 fw-normal py-1 px-2">
-                            {{ $post->categories->first()->name ?? 'খবর' }}
+                            {{ $post->categories->first()->eng_name ?? 'News' }}
                         </span>
                         
                         {{-- Bangla Date --}}
                         <span class="badge bg-dark rounded-0 py-1 px-2 ms-1">
                             <i class="far fa-clock"></i> 
-                            {{ convertToBanglaDate($post->created_at->format('d M, Y')) }}
+                            {{ $post->created_at->format('d M, Y') }}
                         </span>
                     </div>
 
@@ -59,7 +59,7 @@
         </div>
     @empty
         <div class="col-12 text-center py-5">
-            <h4 class="text-muted">কোনো খবর পাওয়া যায়নি।</h4>
+            <h4 class="text-muted">No news found.</h4>
         </div>
     @endforelse
 </div>
@@ -79,9 +79,9 @@
         {{-- Pagination Elements --}}
         @foreach ($posts->getUrlRange(max(1, $posts->currentPage() - 2), min($posts->lastPage(), $posts->currentPage() + 2)) as $page => $url)
             @if ($page == $posts->currentPage())
-                <span class="page-link active">{{ convertToBanglaDate($page) }}</span>
+                <span class="page-link active">{{ $page }}</span>
             @else
-                <a href="{{ $url }}" class="page-link">{{ convertToBanglaDate($page) }}</a>
+                <a href="{{ $url }}" class="page-link">{{ $page }}</a>
             @endif
         @endforeach
 
