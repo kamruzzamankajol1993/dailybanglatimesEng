@@ -40,7 +40,7 @@
 
 
     <!-- Top Header Include -->
-    @include('front.include.topHeader')
+    {{-- @include('front.include.topHeader') --}}
     <!-- End Top Header Include -->
 
      <!-- Header include -->
@@ -76,43 +76,14 @@
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
    <script>
-    function updateTime() {
-        const date = new Date();
-        const options = { 
-            weekday: 'long', 
-            year: 'numeric', 
-            month: 'long', 
-            day: 'numeric',
-            hour: 'numeric',
-            minute: 'numeric',
-            second: 'numeric',
-            hour12: true,
-            timeZone: 'Asia/Dhaka'
-        };
-        
-        // Changed 'bn-BD' to 'en-US' to display in English
-        let formattedDate = new Intl.DateTimeFormat('en-US', options).format(date);
-        
-        // Removed the .replace() lines since English AM/PM is default
-        
-        // Keeps the same ID 'banglaTime' so you don't have to change your HTML
-        document.getElementById('banglaTime').innerHTML = '<i class="far fa-clock text-danger"></i> ' + formattedDate;
-    }
-    setInterval(updateTime, 1000);
-    updateTime(); // Initial call
-</script>
-<script>
     document.addEventListener("DOMContentLoaded", function() {
-        // এলিমেন্ট সিলেক্ট করা
-        var mobileHeader = document.querySelector('.sticky-top-mobile');
-        var desktopNav = document.querySelector('.sticky-nav-desktop');
+        var desktopNav = document.querySelector('.samakal-nav-wrapper'); // ক্লাস নেম আপডেট করা হয়েছে
         var body = document.body;
-
-        // ডেস্কটপের জন্য একটি ফাকা জায়গা (Placeholder) তৈরি করা যাতে মেনু ফিক্সড হলে কন্টেন্ট লাফ না দেয়
         var navPlaceholder = document.createElement("div");
+
         if (desktopNav) {
             navPlaceholder.style.height = desktopNav.offsetHeight + "px";
-            navPlaceholder.style.display = "none"; // শুরুতে লুকানো থাকবে
+            navPlaceholder.style.display = "none";
             desktopNav.parentNode.insertBefore(navPlaceholder, desktopNav);
         }
 
@@ -120,80 +91,21 @@
             var width = window.innerWidth;
             var scrollPosition = window.scrollY;
 
-            // ==========================================
-            // ১. মোবাইল ভার্সন (Width < 992px)
-            // ==========================================
-            if (width < 992) {
-                // ডেস্কটপ সেটিংস রিসেট করা
-                if (desktopNav) {
-                    desktopNav.style.position = '';
-                    desktopNav.style.top = '';
+            if (width >= 992) {
+                var triggerHeight = 160; // লোগো পার হওয়ার পর স্টিকি হবে
+
+                if (scrollPosition > triggerHeight) {
+                    desktopNav.classList.add('sticky-nav-desktop'); // CSS ক্লাস যোগ হবে
+                    navPlaceholder.style.display = "block"; // লাফানো বন্ধ করতে
+                } else {
+                    desktopNav.classList.remove('sticky-nav-desktop'); // CSS ক্লাস রিমুভ হবে
                     navPlaceholder.style.display = "none";
-                }
-
-                if (mobileHeader) {
-                    // মোবাইল হেডার ফিক্সড করা
-                    mobileHeader.style.position = 'fixed';
-                    mobileHeader.style.top = '0';
-                    mobileHeader.style.left = '0';
-                    mobileHeader.style.width = '100%';
-                    mobileHeader.style.zIndex = '1030';
-                    mobileHeader.style.boxShadow = '0 2px 5px rgba(0,0,0,0.1)';
-                    
-                    // বডি কন্টেন্ট যেন হেডারের নিচে না চলে যায়, তাই প্যাডিং দেওয়া
-                    body.style.paddingTop = mobileHeader.offsetHeight + 'px';
-                }
-            } 
-
-            // ==========================================
-            // ২. ডেস্কটপ ভার্সন (Width >= 992px)
-            // ==========================================
-            else {
-                // মোবাইল সেটিংস রিসেট করা
-                if (mobileHeader) {
-                    mobileHeader.style.position = '';
-                    mobileHeader.style.width = '';
-                    body.style.paddingTop = '0px';
-                }
-
-                if (desktopNav) {
-                    // উপরের লোগো এবং টিকার সেকশনের হাইট (আনুমানিক ১৫০ পিক্সেল স্ক্রল করলে মেনু আটকাবে)
-                    var triggerHeight = 260; 
-
-                    if (scrollPosition > triggerHeight) {
-                        // মেনু স্টিকি করা
-                        desktopNav.style.position = 'fixed';
-                        desktopNav.style.top = '0';
-                        desktopNav.style.left = '0';
-                        desktopNav.style.width = '100%';
-                        desktopNav.style.maxWidth = '100%'; // কন্টেইনারের সাইজ ওভাররাইড করে ফুল উইডথ করা
-                        desktopNav.style.zIndex = '1030';
-                        desktopNav.style.backgroundColor = '#f42a41'; // লাল ব্যাকগ্রাউন্ড নিশ্চিত করা
-                        desktopNav.style.boxShadow = '0 4px 6px rgba(0,0,0,0.1)';
-                        
-                        // প্লেসহোল্ডার দেখানো (কন্টেন্ট লাফানো বন্ধ করতে)
-                        navPlaceholder.style.display = "block";
-                        navPlaceholder.style.height = desktopNav.offsetHeight + "px";
-                    } else {
-                        // মেনু স্বাভাবিক অবস্থায় ফেরত আনা
-                        desktopNav.style.position = 'relative'; // বা static
-                        desktopNav.style.maxWidth = ''; // কন্টেইনার সাইজ ফেরত
-                        desktopNav.style.boxShadow = 'none';
-                        desktopNav.style.backgroundColor = ''; 
-                        
-                        // প্লেসহোল্ডার লুকানো
-                        navPlaceholder.style.display = "none";
-                    }
                 }
             }
         }
 
-        // স্ক্রল এবং রিসাইজ ইভেন্ট লিসেনার যোগ করা
         window.addEventListener('scroll', handleStickyNavigation);
         window.addEventListener('resize', handleStickyNavigation);
-        
-        // পেজ লোড হওয়ার সাথে সাথে একবার ফাংশনটি কল করা
-        handleStickyNavigation();
     });
 </script>
   @yield('scripts')

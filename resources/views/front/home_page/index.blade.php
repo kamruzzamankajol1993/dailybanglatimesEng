@@ -46,7 +46,7 @@
             <div class="row g-4 align-items-stretch">
                 
                 {{-- কলাম ১: ম্যাডাম নিউজ (বাম পাশ) --}}
-                <div class="col-lg-3 col-md-6 order-2 order-lg-1 d-flex flex-column">
+                <div class="col-lg-3 col-md-6 order-2 order-lg-1 d-none d-lg-flex flex-column">
                     <div class="card border-0 mb-3 news-card shadow-sm h-auto flex-shrink-0">
                         <div class="position-relative">
                             <img  onerror="this.onerror=null;this.src='{{ $front_admin_url }}{{ $front_logo_name }}';" src="{{$front_admin_url}}{{$front_madam_image}}" class="card-img-top rounded-0" alt="News">
@@ -208,7 +208,7 @@
         </div>
         <p class="mt-2 fw-bold text-muted">Loading More News...</p>
     </div>
-
+@include('front.home_page._partial.namazTimes')
 @endsection
 
 @section('scripts')
@@ -218,12 +218,11 @@
         let isLoading = false;
         let hasMore = true;
 
-        // ফাংশন: ডাটা লোড করার লজিক
         function loadMoreSections() {
             if (isLoading || !hasMore) return;
 
             isLoading = true;
-            $('#loader-area').removeClass('d-none'); // লোডার দেখান
+            $('#loader-area').removeClass('d-none');
 
             $.ajax({
                 url: "{{ route('front.load.more.news') }}", 
@@ -235,7 +234,8 @@
                     $('#dynamic-content-area').append(newContent);
 
                     // ২. স্লাইডার রি-ইনিশিয়ালাইজ করা (Fix for Auto Slider)
-                    // Photo Gallery Slider
+                    
+                    // ফটো গ্যালারি (যদি থাকে)
                     var photoSlider = document.querySelector('#photoGallerySlider');
                     if (photoSlider) {
                         new bootstrap.Carousel(photoSlider, {
@@ -243,13 +243,27 @@
                             ride: 'carousel'
                         });
                     }
-                    // Video Gallery Slider
-                    var videoSlider = document.querySelector('#videoCarousel');
-                    if (videoSlider) {
-                        new bootstrap.Carousel(videoSlider, {
-                            interval: 4000, 
-                            ride: 'carousel'
-                        });
+
+                    // ============================================================
+                    // ফিক্স: ভিডিও গ্যালারির নতুন ৩টি স্লাইডার ইনিশিয়ালাইজ করা
+                    // ============================================================
+                    
+                    // ডেস্কটপ স্লাইডার
+                    var videoDesk = document.querySelector('#videoCarouselDesktop');
+                    if (videoDesk) {
+                        new bootstrap.Carousel(videoDesk, { interval: 4000, ride: 'carousel' });
+                    }
+
+                    // ট্যাবলেট স্লাইডার
+                    var videoTab = document.querySelector('#videoCarouselTablet');
+                    if (videoTab) {
+                        new bootstrap.Carousel(videoTab, { interval: 4000, ride: 'carousel' });
+                    }
+
+                    // মোবাইল স্লাইডার
+                    var videoMob = document.querySelector('#videoCarouselMobile');
+                    if (videoMob) {
+                        new bootstrap.Carousel(videoMob, { interval: 4000, ride: 'carousel' });
                     }
 
                     // ৩. ভেরিয়েবল আপডেট
@@ -257,15 +271,14 @@
                     currentStep = response.nextStep;
                     isLoading = false;
                     
-                    $('#loader-area').addClass('d-none'); // লোডার লুকান
-
-                    // ৪. অটোমেটিক পরের ব্যাচ লোড করার চেক (অপশনাল)
-                    // যদি আপনি চান স্ক্রল না করলেও পেজ ভরে যাক, তবে নিচের লাইনটি আনকমেন্ট করুন
-                  
-                    if (hasMore && $(window).height() > $(document).height() - 100) {
-                         loadMoreSections();
+                    // ৪. অটোমেটিক পরের সেকশন লোড (Recursive Call)
+                    if (hasMore) {
+                        setTimeout(function() {
+                            loadMoreSections();
+                        }, 300);
+                    } else {
+                        $('#loader-area').addClass('d-none');
                     }
-                    
                 },
                 error: function() {
                     isLoading = false;
@@ -275,16 +288,8 @@
             });
         }
 
-        // পেজ লোড হওয়ার ১ সেকেন্ড পর প্রথম ব্যাচ লোড হবে
+        // লোড শুরু করার কমান্ড
         setTimeout(loadMoreSections, 1000);
-
-        // স্ক্রল ইভেন্ট: ইউজার পেজের নিচের দিকে আসলে পরের ব্যাচ লোড হবে
-        $(window).scroll(function() {
-            // ফুটারের ৪০০ পিক্সেল আগে লোড শুরু হবে
-            if ($(window).scrollTop() + $(window).height() > $(document).height() - 1000) {
-                loadMoreSections();
-            }
-        });
     });
 </script>
 @endsection

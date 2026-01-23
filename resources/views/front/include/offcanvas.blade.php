@@ -13,7 +13,7 @@
                 
                 {{-- ১. হোম লিংক --}}
                 <a href="{{ route('front.index') }}" class="list-group-item list-group-item-action">
-                    <i class="fas fa-home me-2"></i> প্রচ্ছদ
+                    <i class="fas fa-home me-2"></i> Cover
                 </a>
 
                 {{-- ২. ক্যাটাগরি লুপ (প্রথম ১৬টি) --}}

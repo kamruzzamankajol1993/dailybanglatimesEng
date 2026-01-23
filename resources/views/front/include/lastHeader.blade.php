@@ -1,77 +1,117 @@
-<div class="container sticky-nav-desktop">
-    <nav class="navbar navbar-expand-lg custom-navbar shadow-sm">
-        <div class="collapse navbar-collapse">
-            <ul class="navbar-nav w-100 justify-content-center flex-wrap">
+<div class="samakal-nav-wrapper sticky-nav-desktop-target">
+    <div class="container samakal-navbar-container">
+        <nav class="navbar navbar-expand-lg samakal-navbar p-0 position-static">
+            
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 
-                {{-- ১. হোম আইকন --}}
-                <li class="nav-item">
-                    <a class="nav-link active" href="{{ route('front.index') }}">
-                        <i class="fas fa-home"></i>
-                    </a>
-                </li>
-
-                {{-- ২. ডাইনামিক ক্যাটাগরি লুপ --}}
-                @foreach($header_categories as $key => $category)
+                {{-- মেনু আইটেম --}}
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 flex-wrap">
                     
-                    {{-- লজিক: ১০ নম্বর ক্যাটাগরির পর যেগুলো আসবে, সেগুলো ল্যাপটপে (XL এর নিচে) হাইড হয়ে যাবে --}}
-                    @php
-                        // $key শুরু হয় 0 থেকে, তাই $key > 9 মানে ১১তম আইটেম থেকে শর্ত প্রযোজ্য হবে
-                        $responsiveClass = ($key > 9) ? 'd-none d-xl-block' : '';
-                    @endphp
+                    {{-- ১. হোম / সর্বশেষ --}}
+                    <li class="nav-item">
+                        <a class="nav-link ps-0" href="{{ route('front.index') }}">
+                           <i class="fa-solid fa-house"></i>
+                        </a>
+                    </li>
 
-                    @if($category->children->count() > 0)
-                        {{-- ড্রপডাউন মেনু (যদি চাইল্ড থাকে) --}}
-                        <li class="nav-item dropdown {{ $responsiveClass }}">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown{{ $category->id }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                {{ $category->eng_name }}
-                            </a>
-                            <ul class="dropdown-menu border-0 shadow rounded-0" aria-labelledby="navbarDropdown{{ $category->id }}">
-                                {{-- প্যারেন্ট ক্যাটাগরি অপশন --}}
-                                <li>
-                                    <a class="dropdown-item fw-bold" href="{{ route('front.category.news', $category->slug) }}">
-                                        {{ $category->eng_name }} (All)
-                                    </a>
-                                </li>
-                                
-                                {{-- চাইল্ড ক্যাটাগরি লুপ --}}
-                                @foreach($category->children as $child)
-                                    <li>
-                                        <a class="dropdown-item" href="{{ route('front.category.news', $child->slug) }}">
-                                            {{ $child->eng_name }}
-                                        </a>
-                                    </li>
+                    {{-- ২. ক্যাটাগরি লুপ --}}
+                    @foreach($header_categories as $key => $category)
+                        @php $responsiveClass = ($key > 10) ? 'd-none d-xl-block' : ''; @endphp
+
+                        @if($category->children->count() > 0)
+                            <li class="nav-item dropdown {{ $responsiveClass }}">
+                                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                                    {{ $category->eng_name }}
+                                </a>
+                                <ul class="dropdown-menu shadow border-0">
+                                    <li><a class="dropdown-item fw-bold" href="{{ route('front.category.news', $category->slug) }}">{{ $category->eng_name }} (All)</a></li>
+                                    @foreach($category->children as $child)
+                                        <li><a class="dropdown-item" href="{{ route('front.category.news', $child->slug) }}">{{ $child->eng_name }}</a></li>
+                                    @endforeach
+                                </ul>
+                            </li>
+                        @else
+                            <li class="nav-item {{ $responsiveClass }}">
+                                <a class="nav-link" href="{{ route('front.category.news', $category->slug) }}">
+                                    {{ $category->eng_name }}
+                                </a>
+                            </li>
+                        @endif
+                    @endforeach
+                    
+                    {{-- ৩. বিবিধ --}}
+                    @if($more_categories->count() > 0)
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Others</a>
+                            <ul class="dropdown-menu shadow border-0">
+                                @foreach($more_categories as $moreCategory)
+                                    <li><a class="dropdown-item" href="{{ route('front.category.news', $moreCategory->slug) }}">{{ $moreCategory->eng_name }}</a></li>
                                 @endforeach
                             </ul>
                         </li>
-                    @else
-                        {{-- সাধারণ মেনু (যদি চাইল্ড না থাকে) --}}
-                        <li class="nav-item {{ $responsiveClass }}">
-                            <a class="nav-link" href="{{ route('front.category.news', $category->slug) }}">
-                                {{ $category->eng_name }}
-                            </a>
-                        </li>
                     @endif
-                @endforeach
+                </ul>
 
-                {{-- ৩. Others অপশন (বাকি ক্যাটাগরিগুলোর জন্য) --}}
-                @if($more_categories->count() > 0)
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="bibidhoDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Others
-                        </a>
-                        <ul class="dropdown-menu border-0 shadow rounded-0" aria-labelledby="bibidhoDropdown">
-                            @foreach($more_categories as $moreCategory)
-                                <li>
-                                    <a class="dropdown-item" href="{{ route('front.category.news', $moreCategory->slug) }}">
-                                        {{ $moreCategory->eng_name }}
-                                    </a>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </li>
-                @endif
+                {{-- ডান পাশ: সুন্দর সার্চ ট্রিগার --}}
+                <div class="d-flex align-items-center position-relative">
+                    <button class="btn border-0 p-2" type="button" id="searchToggleBtn" style="font-size: 18px; color: #333;">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    
+                    {{-- নতুন স্টাইলিশ সার্চ বক্স --}}
+                    <div class="search-dropdown-box" id="desktopSearchBox">
+                        <form action="{{ route('front.search') }}" method="GET">
+                            <div class="input-group">
+                                <input class="form-control border-secondary rounded-0" name="q" type="search" placeholder="Search Here..." aria-label="Search">
+                                <button class="btn btn-danger rounded-0" type="submit">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
 
-            </ul>
-        </div>
-    </nav>
+            </div>
+        </nav>
+    </div>
 </div>
+
+{{-- সার্চ টগল স্ক্রিপ্ট (ছোট স্ক্রিপ্টটি এখানেই রাখুন বা futter এ) --}}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const toggleBtn = document.getElementById('searchToggleBtn');
+        const searchBox = document.getElementById('desktopSearchBox');
+
+        // টগল ক্লিক ইভেন্ট
+        if(toggleBtn && searchBox) {
+            toggleBtn.addEventListener('click', function(e) {
+                e.stopPropagation(); // বাটন ক্লিক করলে যেন উইন্ডো ইভেন্ট ফায়ার না হয়
+                searchBox.classList.toggle('show');
+                
+                // আইকন পরিবর্তন (Search <-> Times)
+                const icon = this.querySelector('i');
+                if (searchBox.classList.contains('show')) {
+                    icon.classList.remove('fa-search');
+                    icon.classList.add('fa-times');
+                    this.style.color = '#dc3545';
+                } else {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-search');
+                    this.style.color = '#333';
+                }
+            });
+
+            // বাইরে ক্লিক করলে বন্ধ হবে
+            window.addEventListener('click', function(e) {
+                if (!searchBox.contains(e.target) && !toggleBtn.contains(e.target)) {
+                    searchBox.classList.remove('show');
+                    // আইকন রিসেট
+                    const icon = toggleBtn.querySelector('i');
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-search');
+                    toggleBtn.style.color = '#333';
+                }
+            });
+        }
+    });
+</script>

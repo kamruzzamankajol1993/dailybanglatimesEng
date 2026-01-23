@@ -132,12 +132,11 @@ class FrontController extends Controller
     // =========================================================
     // ২. লোড মোর নিউজ (AJAX দিয়ে নিচের অংশ লোড হবে)
     // =========================================================
-    // =========================================================
-    // ২. লোড মোর নিউজ (AJAX - সব কুয়েরি যুক্ত করা হয়েছে)
+   // =========================================================
+    // ২. লোড মোর নিউজ (AJAX) - English Version (Optimized)
     // =========================================================
     public function getMoreNews(Request $request)
     {
-        // স্টেপ বা পেজ নম্বর (ডিফল্ট ১)
         $step = $request->input('step', 1);
         
         $html = '';
@@ -145,113 +144,151 @@ class FrontController extends Controller
 
         switch ($step) {
             case 1:
-                // ====================================================
-                // ব্যাচ ১: ইংরেজি, আন্তর্জাতিক, ক্যাটাগরি গ্রিড (জাতীয়, রাজনীতি...), খেলা
-                // ====================================================
+                // ==========================================
+                // স্টেপ ১: ইংরেজি (লেটেস্ট) + আন্তর্জাতিক
+                // ==========================================
                 
-                // ১. ইংরেজি
-                $englishNews = Cache::remember('home_english', 600, function () {
+                // ১. ইংরেজি লেটেস্ট (English Latest)
+                $englishNews = Cache::remember('home_latest_english', 600, function () {
                     return Post::selectRaw('id, title, slug, image, subtitle, created_at, category_id, LEFT(content, 2000) as content')
-                        ->where('status', 'approved')->where('draft_status', 0)->where('trash_status', 0)->where('language', 'bn')
-                        ->orderBy('id', 'desc')->take(4)->get();
+                        ->where('status', 'approved')
+                        ->where('draft_status', 0)
+                        ->where('trash_status', 0)
+                        ->where('language', 'en') // English
+                        ->orderBy('id', 'desc')
+                        ->take(4)
+                        ->get();
                 });
 
-                // ২. আন্তর্জাতিক
-                $internationalNews = $this->getCachedPosts('home_international', 111, 6);
+                // ২. আন্তর্জাতিক (International)
+                // এখানে 'en' প্যারামিটার পাস করা হচ্ছে
+                $internationalNews = $this->getCachedPosts('home_international', 111, 6, 'en');
+                $opinionNews       = $this->getCachedPosts('home_opinion', 118, 2, 'en'); 
 
-                // ৩. ক্যাটাগরি গ্রিড (Category Grid) এর জন্য ভেরিয়েবল
-                $nationalNews = $this->getCachedPosts('home_national', 110, 5);
-                $politicsNews = $this->getCachedPosts('home_politics', 133, 5);
-                $economyNews  = $this->getCachedPosts('home_economy', 119, 5);
-                $opinionNews  = $this->getCachedPosts('home_opinion', 118, 2);
-
-              //  dd($opinionNews);
-
-                // ৪. খেলা
-                $sportsNews = $this->getCachedPosts('home_sports', 113, 11);
-
-                // HTML রেন্ডার
                 $html .= view('front.home_page._partial.englishNew', compact('englishNews'))->render();
                 $html .= view('front.home_page._partial.internationalNews', compact('internationalNews','opinionNews'))->render();
-                // categoryGrid এর ভেতরে national, politics, economy, opinion ভেরিয়েবলগুলো লাগে
+                break;
+
+            case 2:
+                // ==========================================
+                // স্টেপ ২: ক্যাটাগরি গ্রিড + খেলাধুলা
+                // ==========================================
+
+                // ১. ক্যাটাগরি গ্রিড (Category Grid)
+                $nationalNews = $this->getCachedPosts('home_national', 110, 5, 'en');
+                $politicsNews = $this->getCachedPosts('home_politics', 133, 5, 'en');
+                $economyNews  = $this->getCachedPosts('home_economy', 119, 5, 'en');
+                $opinionNews  = $this->getCachedPosts('home_opinion', 118, 2, 'en'); // রি-ইউজ করা হলো
+
+                // ২. খেলা (Sports)
+                $sportsNews = $this->getCachedPosts('home_sports', 113, 11, 'en');
+
                 $html .= view('front.home_page._partial.categoryGrid', compact('nationalNews', 'politicsNews', 'economyNews', 'opinionNews'))->render();
                 $html .= view('front.home_page._partial.sports', compact('sportsNews'))->render();
                 break;
 
-            case 2:
-                // ====================================================
-                // ব্যাচ ২: আইন ও এক্সক্লুসিভ, বিনোদন, আর্টস ও ফিচার
-                // ====================================================
-
-                $lawCourtsNews      = $this->getCachedPosts('home_law', 126, 5);
-                $exclusiveNews      = $this->getCachedPosts('home_exclusive', 143, 5);
-                $entertainmentNews  = $this->getCachedPosts('home_entertainment', 114, 9);
-                
-                $artsLiteratureNews = $this->getCachedPosts('home_arts', 120, 5);
-                $featureNews        = $this->getCachedPosts('home_feature', 141, 5);
-   $healthNews      = $this->getCachedPosts('home_health', 115, 5);
-   $womenNews       = $this->getCachedPosts('home_women', 124, 5);
-                // HTML রেন্ডার
-                $html .= view('front.home_page._partial.lawAndExclusive', compact('lawCourtsNews', 'exclusiveNews','healthNews'))->render();
-                $html .= view('front.home_page._partial.entertainment', compact('entertainmentNews'))->render();
-                 
-                // বিজ্ঞাপন সেকশন (স্ট্যাটিক)
-                $html .= '<section class="ad-section py-4 bg-light"><div class="container"><div class="d-flex justify-content-center"><div style="width: 980px; max-width: 100%; height: 120px; background-color: #ddd; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 20px;">AD SPACE 980x120</div></div></div></section>';
-                
-                $html .= view('front.home_page._partial.artsAndFeature', compact('artsLiteratureNews', 'featureNews','womenNews'))->render();
-                break;
-
             case 3:
-                // ====================================================
-                // ব্যাচ ৩: লাইফস্টাইল, নারী, অন্যান্য ক্যাটাগরি, সারাদেশ
-                // ====================================================
+                // ==========================================
+                // স্টেপ ৩: আইন ও আদালত/এক্সক্লুসিভ + বিনোদন
+                // ==========================================
 
-                $lifestyleNews   = $this->getCachedPosts('home_lifestyle', 117, 7);
-                // নারী ও শিশু
+                // ১. আইন ও এক্সক্লুসিভ
+                $lawCourtsNews = $this->getCachedPosts('home_law', 126, 5, 'en');
+                $exclusiveNews = $this->getCachedPosts('home_exclusive', 143, 5, 'en');
+                $healthNews    = $this->getCachedPosts('home_health', 115, 5, 'en'); 
+
+                // ২. বিনোদন (Entertainment)
+                $entertainmentNews = $this->getCachedPosts('home_entertainment', 114, 9, 'en');
                 
-                // More Categories
-                $healthNews      = $this->getCachedPosts('home_health', 115, 5);
-                $shareMarketNews = $this->getCachedPosts('home_sharemarket', 127, 5);
-                $jobsNews        = $this->getCachedPosts('home_jobs', 128, 5);
-                $agricultureNews = $this->getCachedPosts('home_agriculture', 129, 5);
-                
-                // সারাদেশ ও বিভাগ
-                $saradeshNews    = $this->getCachedPosts('home_saradesh', 132, 5);
-                $divisions = Cache::remember('home_divisions', 3600, function () {
-                    return Category::select('id', 'eng_name', 'slug')->where('status', 1)->whereNull('parent_id')->has('children')->with('children:id,name,slug,parent_id')->get();
-                });
-$miscNews         = $this->getCachedPosts('home_misc', 121, 5);
-                // HTML রেন্ডার
-                // লাইফস্টাইল পার্শিয়ালের ভেতর womenNews লাগতে পারে
-                $html .= view('front.home_page._partial.lifestyle', compact('lifestyleNews'))->render(); 
-                $html .= view('front.home_page._partial.moreCategories', compact('miscNews','shareMarketNews', 'jobsNews', 'agricultureNews'))->render();
-                $html .= view('front.home_page._partial.sharadeshDistrict', compact('saradeshNews', 'divisions'))->render();
+                $html .= view('front.home_page._partial.lawAndExclusive', compact('lawCourtsNews', 'exclusiveNews', 'healthNews'))->render();
+                $html .= view('front.home_page._partial.entertainment', compact('entertainmentNews'))->render();
                 break;
 
             case 4:
-                // ====================================================
-                // ব্যাচ ৪: মিক্সড ক্যাটাগরি (সোশ্যাল, বিজনেস...), ফটো ও ভিডিও
-                // ====================================================
+                // ==========================================
+                // স্টেপ ৪: বিজ্ঞাপন + আর্টস ও ফিচার + লাইফস্টাইল
+                // ==========================================
 
-                // মিক্সড ক্যাটাগরি ভেরিয়েবল
-                $socialMediaNews  = $this->getCachedPosts('home_social', 125, 5);
-                $businessNews     = $this->getCachedPosts('home_business', 134, 5);
-                $religionLifeNews = $this->getCachedPosts('home_religion', 136, 5);
-                $sciTechNews      = $this->getCachedPosts('home_scitech', 116, 5);
-                 // বিচিত্র খবর
+                // ১. বিজ্ঞাপন (Advertisement)
+                $html .= '<section class="ad-section py-4 bg-light"><div class="container"><div class="d-flex justify-content-center"><div style="width: 980px; max-width: 100%; height: 120px; background-color: #ddd; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 20px;">AD SPACE 980x120</div></div></div></section>';
 
-                // ফটো ও ভিডিও
-                $photoGalleryNews = $this->getCachedPosts('home_photo', 137, 7);
-                $videoGalleryNews = Cache::remember('home_videos', 600, function () {
-                    return VideoNews::select('id', 'title', 'slug', 'thumbnail','created_at')->where('status', 'approved')->where('draft_status', 0)->where('trash_status', 0)->where('language', 'en')->orderBy('id', 'desc')->take(9)->get();
+                // ২. আর্টস, ফিচার ও নারী
+                $artsLiteratureNews = $this->getCachedPosts('home_arts', 120, 5, 'en');
+                $featureNews        = $this->getCachedPosts('home_feature', 141, 5, 'en');
+                $womenNews          = $this->getCachedPosts('home_women', 124, 5, 'en');
+
+                // ৩. লাইফস্টাইল
+                $lifestyleNews = $this->getCachedPosts('home_lifestyle', 117, 7, 'en');
+
+                $html .= view('front.home_page._partial.artsAndFeature', compact('artsLiteratureNews', 'featureNews', 'womenNews'))->render();
+                $html .= view('front.home_page._partial.lifestyle', compact('lifestyleNews'))->render(); 
+                break;
+
+            case 5:
+                // ==========================================
+                // স্টেপ ৫: আরও ক্যাটাগরি + সারাদেশ
+                // ==========================================
+
+                // ১. আরও ক্যাটাগরি (More Categories)
+                $shareMarketNews = $this->getCachedPosts('home_sharemarket', 127, 5, 'en');
+                $jobsNews        = $this->getCachedPosts('home_jobs', 128, 5, 'en');
+                $agricultureNews = $this->getCachedPosts('home_agriculture', 129, 5, 'en');
+                $miscNews        = $this->getCachedPosts('home_misc', 121, 5, 'en');
+
+                // ২. সারাদেশ ও বিভাগ (Divisions)
+                $saradeshNews = $this->getCachedPosts('home_saradesh', 132, 5, 'en');
+                
+                // ডিভিশন লিস্ট ক্যাশ করা (Language independent usually, but kept separate just in case)
+                $divisions = Cache::remember('home_divisions', 3600, function () {
+                    return Category::select('id', 'name', 'slug') // English Name might be needed if column exists e.g. 'eng_name'
+                        ->where('status', 1)
+                        ->whereNull('parent_id')
+                        ->has('children')
+                        ->with('children:id,name,slug,parent_id')
+                        ->get();
                 });
 
-                // HTML রেন্ডার
+                $html .= view('front.home_page._partial.moreCategories', compact('miscNews', 'shareMarketNews', 'jobsNews', 'agricultureNews'))->render();
+                $html .= view('front.home_page._partial.sharadeshDistrict', compact('saradeshNews', 'divisions'))->render();
+                break;
+
+            case 6:
+                // ==========================================
+                // স্টেপ ৬: মিক্সড ক্যাটাগরি + ফটো গ্যালারি
+                // ==========================================
+
+                // ১. মিক্সড (Mixed Categories)
+                $socialMediaNews  = $this->getCachedPosts('home_social', 125, 5, 'en');
+                $businessNews     = $this->getCachedPosts('home_business', 134, 5, 'en');
+                $religionLifeNews = $this->getCachedPosts('home_religion', 136, 5, 'en');
+                $sciTechNews      = $this->getCachedPosts('home_scitech', 116, 5, 'en');
+
+                // ২. ফটো গ্যালারি (Photo Gallery)
+                $photoGalleryNews = $this->getCachedPosts('home_photo', 137, 7, 'en');
+
                 $html .= view('front.home_page._partial.mixedCategory', compact('socialMediaNews', 'businessNews', 'religionLifeNews', 'sciTechNews'))->render();
                 $html .= view('front.home_page._partial.photoGallery', compact('photoGalleryNews'))->render();
+                break;
+
+            case 7:
+                // ==========================================
+                // স্টেপ ৭: ভিডিও গ্যালারি (Video Gallery)
+                // ==========================================
+                
+                $videoGalleryNews = Cache::remember('home_videos', 600, function () {
+                    return VideoNews::select('id', 'title', 'slug', 'thumbnail','created_at')
+                        ->where('status', 'approved')
+                        ->where('draft_status', 0)
+                        ->where('trash_status', 0)
+                        ->where('language', 'en') // English Videos
+                        ->orderBy('id', 'desc')
+                        ->take(9)
+                        ->get();
+                });
+
                 $html .= view('front.home_page._partial.videoGallery', compact('videoGalleryNews'))->render();
                 
-                $hasMore = false; // শেষ ধাপ
+                $hasMore = false; // লোডিং শেষ
                 break;
                 
             default:
@@ -537,6 +574,9 @@ public function newsDetailsOld($id)
     // 4. Sidebar Data
     $latestNews = Post::where('status', 'approved')       ->where('language', 'en')->where('trash_status', 0)->latest()->take(5)->get();
     $popularNews = Post::where('status', 'approved')->where('language', 'en')->where('trash_status', 0)->orderBy('view_count', 'desc')->take(5)->get();
+
+        return view('front.news.details', compact('post', 'previousPost', 'nextPost', 'latestNews', 'popularNews'));
+
 }
 
 public function newsDetails($slug)

@@ -1,5 +1,524 @@
-/* style.css - Complete File */
+/* ============================================================
+   FINAL SAMAKAL HEADER & NAVBAR DESIGN (COMPLETE)
+   ============================================================ */
 
+/* ------------------------------------------------
+   1. MAIN NAVBAR WRAPPER (Lines & Gaps)
+   ------------------------------------------------ */
+.samakal-nav-wrapper {
+    background-color: #ffffff;
+    width: 100%;
+    position: relative;
+    z-index: 1020;
+    
+    /* উপরের লাইন এবং গ্যাপ */
+    border-top: 1px solid #e0e0e0; 
+    margin-top: 8px; /* উপরের লাইনের পর গ্যাপ */
+    
+    /* নিচের ডাবল লাইন এবং গ্যাপ */
+    padding-bottom: 5px; /* নিচের লাইনের আগে টেক্সট থেকে গ্যাপ */
+    border-bottom: 4px double #008000; /* দুটি গ্রিন লাইন (Double Border) */
+    
+    transition: all 0.3s ease;
+}
+
+/* ------------------------------------------------
+   2. STICKY NAVIGATION FIX (Scroll করলে যা হবে)
+   ------------------------------------------------ */
+/* স্ক্রল করার সময় এই ক্লাসটি JS দিয়ে অ্যাড হবে */
+.sticky-nav-desktop {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    
+    /* স্ক্রল অবস্থায় গ্যাপ এবং বর্ডার রিমুভ */
+    margin-top: 0 !important; 
+    border-top: none !important; 
+    border-bottom: 1px solid #ddd !important; /* ডাবল লাইনের বদলে সিম্পল লাইন */
+    padding-bottom: 0 !important;
+    
+    /* শ্যাডো এবং এনিমেশন */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
+    animation: stickySlide 0.4s ease;
+}
+
+/* স্টিকি হওয়ার এনিমেশন */
+@keyframes stickySlide {
+    from { top: -60px; opacity: 0; }
+    to { top: 0; opacity: 1; }
+}
+
+/* ------------------------------------------------
+   3. MENU ITEMS & ALIGNMENT
+   ------------------------------------------------ */
+/* কন্টেইনারের প্যাডিং ফিক্স (হেডলাইনের সাথে মিল রাখার জন্য) */
+.samakal-navbar-container {
+    padding-left: 12px; 
+    padding-right: 12px;
+}
+
+/* মেনু লিংক স্টাইল */
+.samakal-navbar .nav-link {
+    color: #000000 !important;
+    font-weight: 700; /* একটু মোটা ফন্ট */
+    font-size: 15px !important;       
+    padding: 8px 12px !important;     
+    transition: all 0.2s ease;
+}
+
+/* হোভার এফেক্ট */
+.samakal-navbar .nav-link:hover,
+.samakal-navbar .nav-link.active {
+    color: #dc3545 !important; /* লাল রঙ */
+}
+
+/* ড্রপডাউন মেনু */
+.samakal-navbar .dropdown-menu {
+    border-top: 3px solid #008000; /* ড্রপডাউনের উপরে গ্রিন বর্ডার */
+    border-radius: 0;
+    margin-top: 0;
+    border-bottom: 0;
+    border-left: 1px solid #eee;
+    border-right: 1px solid #eee;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.samakal-navbar .dropdown-item:hover {
+    background-color: #f8f9fa;
+    color: #dc3545;
+}
+
+/* ------------------------------------------------
+   4. STYLISH SEARCH BOX (Popup Style)
+   ------------------------------------------------ */
+.search-dropdown-box {
+    position: absolute;
+    right: 0;
+    top: 100%; /* নেভবারের ঠিক নিচে */
+    width: 320px;
+    background: #fff;
+    padding: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15); /* সুন্দর শ্যাডো */
+    border-top: 3px solid #dc3545; /* সার্চ বক্সের উপরে লাল দাগ */
+    z-index: 1500;
+    display: none; /* ডিফল্ট হাইড */
+    border-radius: 0 0 5px 5px;
+}
+
+/* যখন সার্চ ওপেন হবে */
+.search-dropdown-box.show {
+    display: block;
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ------------------------------------------------
+   5. HEADER TOP AREA (Date, Logo, Socials)
+   ------------------------------------------------ */
+.header-top-wrapper {
+    padding: 10px 0;
+    background: #fff;
+}
+
+/* তারিখ এবং লোকেশন */
+.date-location-text {
+    font-size: 14px;
+    color: #555;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* বাটন (Fact Check / English) */
+.header-btn {
+    background-color: #f8f9fa;
+    color: #333;
+    font-weight: 600;
+    font-size: 13px;
+    padding: 5px 12px;
+    border: 1px solid #e0e0e0;
+    text-decoration: none;
+    transition: 0.3s;
+    display: inline-block;
+}
+.header-btn:hover {
+    background-color: #222;
+    color: #fff;
+}
+/* ============================================================
+   UPDATED COLORS & MOBILE FIXES
+   ============================================================ */
+
+/* 1. ROUND SOCIAL ICONS (Brand Backgrounds) */
+.social-icon-round {
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+    border-radius: 50%; /* গোল শেপ */
+    color: #fff !important; /* আইকন কালার সাদা */
+    display: inline-block;
+    transition: all 0.3s ease;
+    margin: 0 4px;
+    font-size: 14px;
+    vertical-align: middle;
+}
+
+.social-icon-round:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+    opacity: 0.9;
+}
+
+/* Brand Colors (Background) */
+.social-icon-round.fa-facebook-f { background-color: #1877F2; }
+.social-icon-round.fa-x-twitter, 
+.social-icon-round.fa-twitter    { background-color: #000000; }
+.social-icon-round.fa-youtube    { background-color: #FF0000; }
+.social-icon-round.fa-instagram  { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+.social-icon-round.fa-linkedin-in{ background-color: #0077B5; }
+.social-icon-round.fa-whatsapp   { background-color: #25D366; }
+
+
+/* 2. GREEN BUTTONS (Fact Check & English) */
+.header-btn {
+    background-color: #008000 !important; /* গ্রিন ব্যাকগ্রাউন্ড */
+    color: #ffffff !important; /* সাদা টেক্সট */
+    border: 1px solid #006a4e;
+    font-weight: 600;
+    font-size: 13px;
+    padding: 5px 15px;
+    border-radius: 2px; /* সামান্য কার্ভ */
+    text-decoration: none;
+    display: inline-block;
+    transition: 0.3s;
+}
+
+.header-btn:hover {
+    background-color: #006400 !important; /* হোভারে ডার্ক গ্রিন */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+
+/* 3. MOBILE FIXED HEADER FIX */
+@media (max-width: 991px) {
+    .sticky-top-mobile {
+        position: fixed !important;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1040;
+        background-color: #ffffff;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        border-bottom: 1px solid #ddd;
+        /* হাইট ফিক্সড করে দেওয়া হলো যাতে ক্যালকুলেশন সহজ হয় */
+        min-height: 70px; 
+    }
+
+    /* বডি কন্টেন্ট নিচে নামিয়ে আনা (আগের চেয়ে বাড়ানো হয়েছে) */
+    body {
+        padding-top: 65px !important; /* 60px থেকে বাড়িয়ে 90px করা হলো */
+    }
+    
+    /* যদি নির্দিষ্ট কোনো সেকশন ঢুকে যায়, তার জন্য */
+    .main-content {
+        margin-top: -5px;
+    }
+}
+/* সোশ্যাল আইকন (অরজিনাল কালার) */
+.social-icon-original {
+    font-size: 18px;
+    margin: 0 6px;
+    transition: transform 0.2s ease;
+    display: inline-block;
+}
+.social-icon-original:hover { transform: scale(1.2); }
+
+/* ব্র্যান্ড কালার */
+.social-icon-original.fa-facebook-f { color: #1877F2; }
+.social-icon-original.fa-twitter, .social-icon-original.fa-x-twitter { color: #000000; }
+.social-icon-original.fa-youtube { color: #FF0000; }
+.social-icon-original.fa-instagram { color: #E1306C; }
+.social-icon-original.fa-linkedin-in { color: #0077B5; }
+.social-icon-original.fa-whatsapp { color: #25D366; }
+
+/* ------------------------------------------------
+   6. MOBILE RESPONSIVE TWEAKS
+   ------------------------------------------------ */
+@media (max-width: 991px) {
+    /* মোবাইলে ডেস্কটপ হেডার হাইড */
+    .header-top-wrapper, .samakal-nav-wrapper { 
+        display: none !important; 
+    }
+    
+    /* মোবাইল লোগো ফিক্স */
+    .sticky-top-mobile img {
+        max-height: 40px !important;
+    }
+}
+
+/* ============================================================
+   RESPONSIVE FIX FOR LAPTOPS & TABLETS (1024px - 1350px)
+   ============================================================ */
+
+/* ============================================================
+   ADVANCED RESPONSIVE FIXES (SEPARATE BREAKPOINTS)
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   CASE 1: 1024px Screen (Nest Hub, Tablets) - THE PROBLEM AREA
+   Range: 992px to 1199px
+   ------------------------------------------------------------ */
+@media (min-width: 992px) and (max-width: 1199px) {
+
+   /* ১. মেনু বার */
+    .samakal-navbar .nav-link {
+        font-size: 14px !important;      /* ১০২৪ এর চেয়ে একটু বড় */
+        padding: 8px 5px !important;     /* প্যাডিং মিডিয়াম */
+        font-weight: 600;
+    }
+    
+    /* মেনু কন্টেইনার */
+    .samakal-navbar-container {
+        padding: 0 10px !important;
+    }
+
+    /* ২. লোগো এরিয়া */
+    .header-top-wrapper img {
+        max-height: 60px !important;     /* লোগো মিডিয়াম সাইজ */
+    }
+
+    /* ৩. বাম পাশের সময় */
+    #realTimeDisplay { font-size: 17px !important; }
+    #fullDateDisplay { font-size: 11px !important; }
+
+    /* ৪. ডান পাশের বাটন ও সোশ্যাল */
+    .header-btn {
+        font-size: 9px !important;
+        padding: 4px 10px !important;
+    }
+    .social-icon-round {
+        width: 26px !important;
+        height: 26px !important;
+        line-height: 26px !important;
+        font-size: 13px !important;
+        margin: 0 3px !important;
+    }
+}
+
+
+/* ------------------------------------------------------------
+   CASE 2: 1280px Screen (Nest Hub Max, Small Laptops)
+   Range: 1200px to 1399px
+   ------------------------------------------------------------ */
+@media (min-width: 1200px) and (max-width: 1399px) {
+
+    /* ১. মেনু বার */
+    .samakal-navbar .nav-link {
+        font-size: 15px !important;      /* ১০২৪ এর চেয়ে একটু বড় */
+        padding: 8px 7px !important;     /* প্যাডিং মিডিয়াম */
+        font-weight: 600;
+    }
+    
+    /* মেনু কন্টেইনার */
+    .samakal-navbar-container {
+        padding: 0 10px !important;
+    }
+
+    /* ২. লোগো এরিয়া */
+    .header-top-wrapper img {
+        max-height: 60px !important;     /* লোগো মিডিয়াম সাইজ */
+    }
+
+    /* ৩. বাম পাশের সময় */
+    #realTimeDisplay { font-size: 17px !important; }
+    #fullDateDisplay { font-size: 11px !important; }
+
+    /* ৪. ডান পাশের বাটন ও সোশ্যাল */
+    .header-btn {
+        font-size: 11px !important;
+        padding: 4px 10px !important;
+    }
+    .social-icon-round {
+        width: 26px !important;
+        height: 26px !important;
+        line-height: 26px !important;
+        font-size: 13px !important;
+        margin: 0 3px !important;
+    }
+}
+/* ============================================================
+   CATEGORY CARDS SECTION DESIGN (Scoped under .category-cards)
+   ============================================================ */
+
+/* ১. মেইন কার্ড কন্টেইনার */
+.category-grid.cat-card-box {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    height: 100%;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    position: relative;
+    border: 1px solid #f0f0f0; /* খুব হালকা বর্ডার */
+}
+
+/* কার্ডে মাউস নিলে একটু উপরে উঠবে */
+.category-grid.cat-card-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(220, 53, 69, 0.15);
+}
+
+/* ২. হেডার ডিজাইন */
+.category-grid.cat-card-header {
+    background: #ffffff;
+    padding: 15px 20px;
+    border-bottom: 2px solid #f0f0f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+/* টাইটেলের নিচে লাল দাগ */
+.category-grid.cat-card-header::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 20px;
+    width: 60px;
+    height: 2px;
+    background-color: #dc3545;
+}
+
+.category-grid.cat-card-title {
+    font-size: 18px;
+    font-weight: 800;
+    color: #222;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* 'আরও' বাটন */
+.category-grid.cat-card-header a {
+    font-size: 12px;
+    font-weight: 600;
+    background: #f8f9fa;
+    padding: 5px 12px;
+    border-radius: 20px;
+    color: #555 !important;
+    transition: 0.3s;
+    text-decoration: none;
+}
+
+.category-grid.cat-card-header a:hover {
+    background: #dc3545;
+    color: #fff !important;
+}
+
+/* ৩. মেইন নিউজ (বড় ছবি) */
+.category-grid.cat-main-news {
+    padding: 20px;
+}
+
+.category-grid.cat-main-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    transition: transform 0.5s ease;
+}
+
+/* ইমেজে জুম এফেক্ট */
+.category-grid.cat-card-box:hover .cat-main-img {
+    transform: scale(1.05);
+}
+
+.category-grid.cat-main-title {
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.5;
+    margin-bottom: 8px;
+}
+
+.category-grid.cat-main-title a {
+    color: #111;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.category-grid.cat-main-title a:hover {
+    color: #dc3545;
+}
+
+/* ৪. নিউজ লিস্ট (ছোট খবর) */
+.category-grid.cat-news-list {
+    padding: 0 20px 20px 20px;
+}
+
+.category-grid.cat-list-item {
+    display: flex;
+    padding: 12px 0;
+    border-bottom: 1px dashed #e0e0e0;
+    align-items: center;
+    transition: 0.3s;
+}
+
+.category-grid.cat-list-item:last-child {
+    border-bottom: none;
+}
+
+/* লিস্ট আইটেম হোভার এফেক্ট */
+.category-grid.cat-list-item:hover {
+    background-color: #fffafa;
+    padding-left: 8px; /* একটু ডানে সরবে */
+    border-radius: 6px;
+}
+
+.category-grid.cat-list-img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 50%; /* গোল ছবি */
+    margin-right: 15px;
+    border: 2px solid #f1f1f1;
+    flex-shrink: 0;
+}
+
+.category-grid.cat-list-title {
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.4;
+    margin: 0;
+    color: #444;
+}
+
+.category-grid.cat-list-title a {
+    color: #444;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.category-grid.cat-list-title a:hover {
+    color: #dc3545;
+}
+
+/* তারিখ */
+.category-grid.cat-date {
+    font-size: 12px;
+    color: #999;
+    font-weight: 500;
+    display: block;
+    margin-top: 4px;
+}
 /* ১. সব ব্রাউজারের জন্য স্ক্রলবার সম্পূর্ণ হাইড করা (Global Fix) */
 * {
     scrollbar-width: none !important; /* Firefox */
@@ -832,4 +1351,301 @@ a { text-decoration: none; color: inherit; }
     .custom-navbar .nav-link i {
         font-size: 13px; 
     }
+}
+
+/* ============================================================
+   FIX: LAW, EXCLUSIVE & HEALTH - 100% EQUAL HEIGHT
+   ============================================================ */
+
+/* ১. মেইন রো (Row) ফিক্স */
+.category-grid .row {
+    display: flex;          /* ফ্লেক্সবক্স চালু করা */
+    flex-wrap: wrap;        /* রেসপন্সিভ ব্রেকিং */
+    background-color: #f8f9fa; /* গ্যাপের কালার ঠিক রাখতে */
+}
+
+/* ২. কলামগুলোকে (col-lg-4) কার্ড হিসেবে রূপান্তর করা */
+/* এটিই মূল ফিক্স: কলামটিকেই আমরা সাদা কার্ড বানিয়ে ফেলছি */
+.category-grid .row > .col-lg-4 {
+    display: flex;
+    flex-direction: column; /* কন্টেন্ট উপর থেকে নিচে */
+    background-color: #ffffff; /* সাদা ব্যাকগ্রাউন্ড */
+    
+    /* টেকনিক: কলামগুলোর মাঝের গ্যাপ তৈরি করতে আমরা বর্ডার ব্যবহার করছি */
+    border: 10px solid #f8f9fa; /* সেকশনের ব্যাকগ্রাউন্ড কালারের সমান বর্ডার */
+    border-radius: 15px;       
+    background-clip: padding-box; /* বর্ডার এবং ব্যাকগ্রাউন্ডের মিশেল ঠিক রাখতে */
+    
+    /* কন্টেন্ট যেন কার্ডের কিনারে লেগে না যায় */
+    padding: 15px !important; 
+    
+    /* হাইট ফিক্স */
+    height: auto; 
+    min-height: 100%; /* এটি নিশ্চিত করে ছোট কার্ডগুলোও বড় কার্ডের সমান লম্বা হবে */
+    
+    /* শ্যাডো */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+/* ৩. হেডারের ডিজাইন অক্ষত রাখা */
+/* যেহেতু কলামে প্যাডিং দিয়েছি, হেডার অটোমেটিক সুন্দরভাবে ভেতরে থাকবে */
+.category-grid .section-header-wrapper {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+/* ৪. মেইন কার্ড (বড় ছবি) ফিক্স */
+.category-grid .col-lg-4 > .card {
+    box-shadow: none !important; /* ভেতরের শ্যাডো রিমুভ */
+    border: none !important;
+    background: transparent !important;
+    flex-shrink: 0; 
+    margin-bottom: 15px !important;
+}
+
+/* ৫. নিউজ লিস্ট (নিচের অংশ) ফিক্স */
+/* ফ্লেক্স গ্রো ব্যবহার করে এই অংশটি বাকি খালি জায়গা পূরণ করবে */
+.category-grid .col-lg-4 > .d-flex.flex-column {
+    flex-grow: 1; /* এটি কার্ডের নিচ পর্যন্ত জায়গা দখল করবে */
+    justify-content: flex-start;
+}
+
+/* ৬. মেইন ইমেজের সাইজ ফিক্স */
+.category-grid .col-lg-4 .card-img-top {
+    height: 200px;
+    object-fit: cover;
+    width: 100%;
+    border-radius: 5px;
+}
+
+/* ৭. হোভার এফেক্ট */
+.category-grid .row > .col-lg-4:hover {
+    border-color: #ffffff; /* বর্ডার সাদা হয়ে কার্ডটিকে বড় দেখাবে */
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(220, 53, 69, 0.15);
+    transition: all 0.3s ease;
+    z-index: 2; /* হোভার করলে কার্ডটি উপরে আসবে */
+}
+
+/* ============================================================
+   MORE CATEGORIES SECTION (4 Columns - Share Market, Jobs etc.)
+   ============================================================ */
+
+/* ১. রো (Row) সেটআপ */
+.more-categories-section .row {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #f8f9fa; /* সেকশনের ব্যাকগ্রাউন্ড কালার */
+}
+
+/* ২. কলামগুলোকে কার্ড হিসেবে রূপান্তর (Equal Height Fix) */
+.more-categories-section .col-lg-3, 
+.more-categories-section .col-md-6 {
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff; /* সাদা ব্যাকগ্রাউন্ড */
+    
+    /* কলামগুলোর মাঝে গ্যাপ ঠিক রাখার টেকনিক */
+    border: 8px solid #f8f9fa; /* বাইরের ব্যাকগ্রাউন্ডের সমান বর্ডার */
+    border-radius: 12px;
+    background-clip: padding-box;
+    
+    /* প্যাডিং ও হাইট */
+    padding: 12px !important;
+    min-height: 100%; /* সব কার্ড সমান লম্বা হবে */
+    
+    /* শ্যাডো */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
+}
+
+/* ৩. হোভার এফেক্ট */
+.more-categories-section .col-lg-3:hover, 
+.more-categories-section .col-md-6:hover {
+    transform: translateY(-5px);
+    border-color: #ffffff; /* বর্ডার সাদা হয়ে কার্ড ফোকাস হবে */
+    box-shadow: 0 10px 20px rgba(220, 53, 69, 0.1); /* হালকা লাল আভা */
+    z-index: 2;
+}
+
+/* ৪. হেডার ডিজাইন (অক্ষত রাখা হয়েছে) */
+.more-categories-section .section-header-wrapper {
+    width: 100%;
+    margin-bottom: 12px;
+    /* আপনার ব্লেড ফাইলের ইনলাইন স্টাইলই এখানে কাজ করবে */
+}
+
+/* ৫. মেইন নিউজ কার্ড (রিসেট) */
+.more-categories-section .card {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    margin-bottom: 0 !important;
+}
+
+/* ৬. মেইন ইমেজ সাইজ ফিক্স (বড় ছবি) */
+.more-categories-section .extra-cat-main-img {
+    height: 160px; /* হাইট ফিক্সড */
+    width: 100%;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 8px;
+}
+
+/* ৭. নিউজ লিস্ট কন্টেইনার (বাকি জায়গা পূরণ করবে) */
+.more-categories-section .d-flex.flex-column {
+    flex-grow: 1; /* কার্ডের নিচ পর্যন্ত ব্যাকগ্রাউন্ড টেনে নামাবে */
+    justify-content: flex-start;
+    margin-top: 10px;
+    border-top: 1px dashed #eee; /* মেইন নিউজ এবং লিস্টের মাঝে দাগ */
+    padding-top: 10px;
+}
+
+/* ৮. ছোট লিস্ট আইটেম ডিজাইন */
+.more-categories-section .d-flex.flex-column .card {
+    padding: 8px 0 !important;
+    border-bottom: 1px solid #f5f5f5 !important;
+}
+
+.more-categories-section .d-flex.flex-column .card:last-child {
+    border-bottom: none !important;
+}
+
+/* ৯. ছোট ইমেজ সাইজ ফিক্স (থাম্বনেইল) */
+.more-categories-section .extra-cat-list-img {
+    height: 50px;
+    width: 70px;
+    object-fit: cover;
+    border-radius: 3px;
+    border: 1px solid #eee;
+}
+
+/* ১০. টাইটেল এবং তারিখ */
+.more-categories-section .card-title a,
+.more-categories-section h6 a {
+    color: #333;
+    transition: 0.2s;
+    line-height: 1.4;
+}
+
+.more-categories-section a:hover {
+    color: #dc3545; /* হোভারে লাল */
+}
+
+.more-categories-section .bangla-date {
+    font-size: 11px;
+    color: #28a745; /* সবুজ তারিখ */
+    display: block;
+    margin-top: 3px;
+}
+
+/* ============================================================
+   MIXED CATEGORY SECTION (Social, Business, Science etc.)
+   ============================================================ */
+
+/* ১. রো (Row) সেটআপ */
+.mixed-category-section .row {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #f8f9fa; /* সেকশনের ব্যাকগ্রাউন্ড */
+}
+
+/* ২. কলামগুলোকে কার্ড হিসেবে রূপান্তর (Equal Height Fix) */
+.mixed-category-section .col-lg-3, 
+.mixed-category-section .col-md-6 {
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff; /* সাদা ব্যাকগ্রাউন্ড */
+    
+    /* কলামগুলোর মাঝে গ্যাপ ঠিক রাখার টেকনিক */
+    border: 8px solid #f8f9fa; 
+    border-radius: 12px;
+    background-clip: padding-box;
+    
+    /* প্যাডিং ও হাইট */
+    padding: 12px !important;
+    min-height: 100%; /* সব কার্ড সমান লম্বা হবে */
+    
+    /* শ্যাডো */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
+}
+
+/* ৩. হোভার এফেক্ট */
+.mixed-category-section .col-lg-3:hover, 
+.mixed-category-section .col-md-6:hover {
+    transform: translateY(-5px);
+    border-color: #ffffff; /* হোভার ফোকাস */
+    box-shadow: 0 10px 20px rgba(220, 53, 69, 0.1);
+    z-index: 2;
+}
+
+/* ৪. হেডার ডিজাইন (অক্ষত রাখা হয়েছে) */
+.mixed-category-section .section-header-wrapper {
+    width: 100%;
+    margin-bottom: 12px;
+}
+
+/* ৫. মেইন নিউজ কার্ড (রিসেট) */
+.mixed-category-section .card {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    margin-bottom: 0 !important;
+}
+
+/* ৬. মেইন ইমেজ সাইজ ফিক্স */
+.mixed-category-section .extra-cat-main-img {
+    height: 160px; /* হাইট ফিক্সড */
+    width: 100%;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 8px;
+}
+
+/* ৭. নিউজ লিস্ট কন্টেইনার (বাকি জায়গা পূরণ করবে) */
+.mixed-category-section .d-flex.flex-column {
+    flex-grow: 1; /* কার্ডের নিচ পর্যন্ত নামাবে */
+    justify-content: flex-start;
+    margin-top: 10px;
+    border-top: 1px dashed #eee;
+    padding-top: 10px;
+}
+
+/* ৮. ছোট লিস্ট আইটেম ডিজাইন */
+.mixed-category-section .d-flex.flex-column .card {
+    padding: 8px 0 !important;
+    border-bottom: 1px solid #f5f5f5 !important;
+}
+
+.mixed-category-section .d-flex.flex-column .card:last-child {
+    border-bottom: none !important;
+}
+
+/* ৯. ছোট ইমেজ সাইজ ফিক্স */
+.mixed-category-section .extra-cat-list-img {
+    height: 50px;
+    width: 70px;
+    object-fit: cover;
+    border-radius: 3px;
+    border: 1px solid #eee;
+}
+
+/* ১০. টাইটেল এবং তারিখ */
+.mixed-category-section .card-title a,
+.mixed-category-section h6 a {
+    color: #333;
+    transition: 0.2s;
+    line-height: 1.4;
+}
+
+.mixed-category-section a:hover {
+    color: #dc3545;
+}
+
+.mixed-category-section .bangla-date {
+    font-size: 11px;
+    color: #28a745;
+    display: block;
+    margin-top: 3px;
 }
