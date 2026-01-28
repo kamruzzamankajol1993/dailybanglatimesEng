@@ -61,7 +61,7 @@ class FrontController extends Controller
                 $query->where('category_id', $categoryId);
             }
 
-            $posts = $query->orderBy('id', 'desc')->take($limit)->get();
+            $posts = $query->orderBy('created_at', 'desc')->take($limit)->get();
 
             // ৩. ফলব্যাক লজিক (Pivot Table Check)
             if ($categoryId && $posts->count() == 0) {
@@ -74,7 +74,7 @@ class FrontController extends Controller
                     ->whereHas('categories', function ($q) use ($categoryId) {
                         $q->where('categories.id', $categoryId);
                     })
-                    ->orderBy('id', 'desc')
+                    ->orderBy('created_at', 'desc')
                     ->take($limit)
                     ->get();
             }
@@ -95,7 +95,7 @@ class FrontController extends Controller
         $latestPosts = Cache::remember('home_latest', 300, function () use ($selectCols) {
             return Post::with('categories:id,name,slug')->selectRaw($selectCols)
                 ->where('status', 'approved')->where('draft_status', 0)->where('trash_status', 0)->where('language', 'en')
-                ->orderBy('id', 'desc')->take(10)->get();
+                ->orderBy('created_at', 'desc')->take(10)->get();
         });
 
         // ২. জনপ্রিয় খবর (Popular)
@@ -110,7 +110,7 @@ class FrontController extends Controller
             return Post::selectRaw($selectCols)
                 ->where('status', 'approved')->where('draft_status', 0)->where('trash_status', 0)->where('language', 'en')
                 ->where('home_page_position', 'under_madam_image')
-                ->orderBy('id', 'desc')->take(8)->get();
+                ->orderBy('created_at', 'desc')->take(8)->get();
         });
 
         // ৪. স্লাইডার
@@ -118,7 +118,7 @@ class FrontController extends Controller
             return Post::selectRaw($selectCols)
                 ->where('status', 'approved')->where('draft_status', 0)->where('trash_status', 0)->where('language', 'en')
                 ->where('home_page_position', 'slider')
-                ->orderBy('id', 'desc')->take(5)->get();
+                ->orderBy('created_at', 'desc')->take(5)->get();
         });
         
         // ৫. র‍্যান্ডম নিউজ (স্লাইডারের নিচে ছোট বক্সগুলো)
@@ -154,8 +154,8 @@ class FrontController extends Controller
                         ->where('status', 'approved')
                         ->where('draft_status', 0)
                         ->where('trash_status', 0)
-                        ->where('language', 'en') // English
-                        ->orderBy('id', 'desc')
+                        ->where('language', 'bn') // English
+                        ->orderBy('created_at', 'desc')
                         ->take(4)
                         ->get();
                 });
@@ -281,7 +281,7 @@ class FrontController extends Controller
                         ->where('draft_status', 0)
                         ->where('trash_status', 0)
                         ->where('language', 'en') // English Videos
-                        ->orderBy('id', 'desc')
+                        ->orderBy('created_at', 'desc')
                         ->take(9)
                         ->get();
                 });
@@ -509,7 +509,7 @@ set_time_limit(0);
                 ->where('draft_status', 0)
                 ->where('trash_status', 0)
                        ->where('language', 'en')
-                ->orderBy('id', 'desc')
+                ->orderBy('created_at', 'desc')
                 ->paginate(12); // Grid layout, usually multiples of 3 or 4 are best
 
     // 3. Check if it's an AJAX request (Pagination Click)
@@ -560,7 +560,7 @@ public function newsDetailsOld($id)
                         ->where('draft_status', 0)
                                ->where('language', 'en')
                         ->where('trash_status', 0)
-                        ->orderBy('id', 'desc')
+                        ->orderBy('created_at', 'desc')
                         ->first();
 
     $nextPost = Post::where('id', '>', $post->id)
@@ -616,7 +616,7 @@ public function newsDetails($slug)
                         ->where('draft_status', 0)
                                ->where('language', 'en')
                         ->where('trash_status', 0)
-                        ->orderBy('id', 'desc')
+                        ->orderBy('created_at', 'desc')
                         ->first();
 
     $nextPost = Post::where('id', '>', $post->id)
@@ -708,7 +708,7 @@ public function videoDetail($slug)
 ->where('language', 'en')
                         ->where('draft_status', 0)
                         ->where('trash_status', 0)
-                        ->orderBy('id', 'desc')
+                        ->orderBy('created_at', 'desc')
                         ->take(5)
                         ->get();
 
@@ -723,7 +723,7 @@ public function videoList(Request $request)
                 ->where('draft_status', 0)
                           ->where('language', 'en') 
                 ->where('trash_status', 0)
-                ->orderBy('id', 'desc')
+                ->orderBy('created_at', 'desc')
                 ->paginate(12); // প্রতি পেজে ১২টি ভিডিও
 
     // ২. AJAX রিকোয়েস্ট চেক (প্যাজিনেশনের জন্য)
@@ -937,7 +937,7 @@ public function archive(Request $request)
         $query->where('category_id', $searchCategory);
     }
 
-    $posts = $query->orderBy('id', 'desc')->paginate(12)->withQueryString();
+    $posts = $query->orderBy('created_at', 'desc')->paginate(12)->withQueryString();
 
     // ৪. ক্যাটাগরি লিস্ট (ড্রপডাউনের জন্য)
     $categories = Category::where('status', 1)->select('id', 'eng_name')->get();

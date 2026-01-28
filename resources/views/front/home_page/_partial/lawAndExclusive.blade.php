@@ -29,7 +29,7 @@
                                 <a href="{{ route('front.news.details', $mainLaw->slug) }}" class="text-dark text-decoration-none hover-red">
                                     {{ $mainLaw->title }}
                                 </a>
-                                <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ bangla_date($mainLaw->created_at) }}</small>
+                                <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ english_date($mainLaw->created_at) }}</small>
                             </h5>
                             <p class="card-text small text-secondary text-justify">
                                 {{ Str::limit(strip_tags($mainLaw->content), 150) }}
@@ -49,7 +49,7 @@
                                         <a href="{{ route('front.news.details', $news->slug) }}" class="text-dark text-decoration-none hover-red">
                                             {{ $news->title }}
                                         </a>
-                                        <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ bangla_date($news->created_at) }}</small>
+                                        <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ english_date($news->created_at) }}</small>
                                     </h6>
                                 </div>
                             </div>
@@ -87,7 +87,7 @@
                                 <a href="{{ route('front.news.details', $mainExclusive->slug) }}" class="text-dark text-decoration-none hover-red">
                                     {{ $mainExclusive->title }}
                                 </a>
-                                <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ bangla_date($mainExclusive->created_at) }}</small>
+                                <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ english_date($mainExclusive->created_at) }}</small>
                             </h5>
                             <p class="card-text small text-secondary text-justify">
                                 {{ Str::limit(strip_tags($mainExclusive->content), 150) }}
@@ -107,7 +107,7 @@
                                         <a href="{{ route('front.news.details', $news->slug) }}" class="text-dark text-decoration-none hover-red">
                                             {{ $news->title }}
                                         </a>
-                                        <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ bangla_date($news->created_at) }}</small>
+                                        <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ english_date($news->created_at) }}</small>
                                     </h6>
                                 </div>
                             </div>
@@ -147,7 +147,7 @@
                                 <a href="{{ route('front.news.details', $mainHealth->slug) }}" class="text-dark text-decoration-none hover-red">
                                     {{ $mainHealth->title }}
                                 </a>
-                                <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ bangla_date($mainHealth->created_at) }}</small>
+                                <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ english_date($mainHealth->created_at) }}</small>
                             </h5>
                             <p class="card-text small text-secondary text-justify">
                                 {{ Str::limit(strip_tags($mainHealth->content), 150) }}
@@ -167,7 +167,7 @@
                                         <a href="{{ route('front.news.details', $news->slug) }}" class="text-dark text-decoration-none hover-red">
                                             {{ $news->title }}
                                         </a>
-                                        <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ bangla_date($news->created_at) }}</small>
+                                        <small class="bangla-date"><i class="far fa-clock me-1"></i>{{ english_date($news->created_at) }}</small>
                                     </h6>
                                 </div>
                             </div>
